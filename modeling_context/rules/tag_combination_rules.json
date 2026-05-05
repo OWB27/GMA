@@ -1,0 +1,125 @@
+{
+  "rules": [
+    {
+      "rule_id": "relaxed_vs_horror_tension",
+      "type": "soft_conflict",
+      "tags": ["relaxed", "horror_tension"],
+      "description_zh": "轻松休闲和恐怖压迫通常不应同时高权重。",
+      "description_en": "Relaxed and Horror Tension should usually not both receive high weights.",
+      "allowed_when": [
+        "游戏存在明显轻松部分和独立恐怖部分",
+        "恐怖只是轻度氛围，而整体体验仍偏休闲"
+      ],
+      "validation_hint": "If both weights are >= 4, require strong evidence for both."
+    },
+    {
+      "rule_id": "cozy_vs_horror_tension",
+      "type": "soft_conflict",
+      "tags": ["cozy", "horror_tension"],
+      "description_zh": "轻松治愈和恐怖压迫通常是相反体验，不应同时高权重。",
+      "description_en": "Cozy and Horror Tension usually describe opposite experiences and should not both be high.",
+      "allowed_when": [
+        "游戏有明显风格混合，并且两种体验都被玩家广泛感知"
+      ],
+      "validation_hint": "If both weights are >= 3, require human review."
+    },
+    {
+      "rule_id": "cozy_vs_competitive",
+      "type": "soft_conflict",
+      "tags": ["cozy", "competitive"],
+      "description_zh": "轻松治愈和竞技对抗通常不应同时高权重。",
+      "description_en": "Cozy and Competitive usually should not both receive high weights.",
+      "allowed_when": [
+        "游戏具有轻松视觉或氛围，但核心玩法仍是竞技",
+        "游戏有独立的休闲模式和竞技模式"
+      ],
+      "validation_hint": "If both weights are >= 4, require strong evidence."
+    },
+    {
+      "rule_id": "relaxed_vs_challenge",
+      "type": "soft_conflict",
+      "tags": ["relaxed", "challenge"],
+      "description_zh": "轻松休闲和高难挑战通常不应同时高权重。",
+      "description_en": "Relaxed and Challenge usually should not both receive high weights.",
+      "allowed_when": [
+        "游戏有可选高难内容，但基础体验较轻松",
+        "游戏同时提供休闲玩法和挑战玩法"
+      ],
+      "validation_hint": "If both weights are >= 4, require evidence that both are major experiences."
+    },
+    {
+      "rule_id": "combat_not_equal_challenge",
+      "type": "distinction",
+      "tags": ["combat", "challenge"],
+      "description_zh": "战斗驱动不等于高难挑战。有大量战斗不代表游戏高难。",
+      "description_en": "Combat does not imply Challenge. Frequent combat does not necessarily mean the game is difficult.",
+      "validation_hint": "Only assign challenge if there is evidence of high difficulty, failure pressure, or demanding learning curve."
+    },
+    {
+      "rule_id": "story_rich_not_equal_choices_matter",
+      "type": "distinction",
+      "tags": ["story_rich", "choices_matter"],
+      "description_zh": "剧情丰富不等于选择导向。只有玩家选择能影响剧情、关系、任务或结局时，才应使用 choices_matter。",
+      "description_en": "Story Rich does not imply Choices Matter. Use choices_matter only when player decisions affect story, relationships, missions, or endings.",
+      "validation_hint": "Do not assign choices_matter without explicit evidence of meaningful consequences."
+    },
+    {
+      "rule_id": "open_world_vs_exploration",
+      "type": "distinction",
+      "tags": ["open_world", "exploration"],
+      "description_zh": "开放世界强调地图结构，自由探索强调发现未知内容。二者可以同时出现，但不能互相替代。",
+      "description_en": "Open World describes world structure; Exploration describes discovery-driven experience. They can co-exist but are not the same.",
+      "validation_hint": "Open world requires an open map structure; exploration requires discovery or hidden content as a meaningful experience."
+    },
+    {
+      "rule_id": "strategy_vs_resource_management",
+      "type": "distinction",
+      "tags": ["strategy", "resource_management"],
+      "description_zh": "策略规划强调决策与计划，资源管理强调资源分配与取舍。",
+      "description_en": "Strategy emphasizes decisions and planning; Resource Management emphasizes allocation and trade-offs.",
+      "validation_hint": "Assign resource_management only when resources are a meaningful part of success or progression."
+    },
+    {
+      "rule_id": "build_variety_vs_character_growth",
+      "type": "distinction",
+      "tags": ["build_variety", "character_growth"],
+      "description_zh": "流派构筑强调玩法路线差异，角色成长强调角色能力、关系或人物弧光。",
+      "description_en": "Build Variety describes playstyle and build options; Character Growth describes character progression or personal development.",
+      "validation_hint": "Do not use character_growth for pure gear/build systems without meaningful character development."
+    },
+    {
+      "rule_id": "social_sim_not_equal_multiplayer",
+      "type": "distinction",
+      "tags": ["social_sim", "competitive"],
+      "description_zh": "社交模拟不等于多人游戏。社交模拟需要关系经营、好感度、社区互动或人际系统。",
+      "description_en": "Social Sim does not simply mean multiplayer. It requires relationship management, affection systems, community interaction, or social systems.",
+      "validation_hint": "Do not assign social_sim merely because a game has online multiplayer."
+    }
+  ],
+  "global_validation_rules": [
+    {
+      "rule_id": "max_core_tags",
+      "description_zh": "一个游戏不应有过多 5 分核心标签。",
+      "description_en": "A game should not have too many weight-5 core tags.",
+      "validation_hint": "If more than 3 tags have weight 5, require review."
+    },
+    {
+      "rule_id": "evidence_required",
+      "description_zh": "每个选中标签必须有至少一个证据片段。",
+      "description_en": "Every selected tag must include at least one evidence snippet.",
+      "validation_hint": "Reject or mark for review if evidence_snippets is empty."
+    },
+    {
+      "rule_id": "selected_tag_count",
+      "description_zh": "单个游戏建议选择 4-6 个主要标签，过少或过多都需要审核。",
+      "description_en": "A game should usually have 4-6 main tags. Too few or too many should be reviewed.",
+      "validation_hint": "If selected tags < 3 or > 7, mark for review."
+    },
+    {
+      "rule_id": "existing_tags_only",
+      "description_zh": "只能选择 GRS 现有标签，不能创建新标签。",
+      "description_en": "Only existing GRS tags may be selected. New tags are not allowed.",
+      "validation_hint": "Reject any tag_code not found in tag_definitions."
+    }
+  ]
+}

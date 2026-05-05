@@ -1,0 +1,299 @@
+{
+  "version": "1.1",
+  "name": "GRS Game Tag Weight Scale",
+  "description": "This rule pack defines the 1-5 game tag weight scale used by GRS and GMA, including export rules and review rules.",
+  "scale": "1-5",
+  "applies_to": [
+    "GRS game_tags.weight",
+    "GMA suggested_weight",
+    "GMA reviewed modeling result"
+  ],
+  "core_principle": {
+    "zh": "权重表示某个标签对游戏体验的重要程度，而不是模型判断的置信度。",
+    "en": "Weight represents how important a tag is to the game's experience, not how confident the model is."
+  },
+  "weight_vs_confidence": {
+    "weight": {
+      "zh": "表示标签本身对游戏内容的重要程度。",
+      "en": "Represents the importance of the tag to the game content."
+    },
+    "confidence": {
+      "zh": "表示模型对该标签和权重判断的把握程度。",
+      "en": "Represents how certain the model is about the tag and weight judgment."
+    },
+    "example": {
+      "zh": "weight = 5 但 confidence = 0.62 表示模型认为该标签可能是核心体验，但证据仍需要人工重点审核。",
+      "en": "weight = 5 and confidence = 0.62 means the model believes the tag may be core to the game, but the evidence still needs careful human review."
+    }
+  },
+  "rules": [
+    {
+      "weight": 1,
+      "label_zh": "提及级弱相关",
+      "label_en": "Mention-Level Weak Relevance",
+      "definition_zh": "游戏中只有非常轻微或局部的该元素，通常不足以影响推荐结果。",
+      "definition_en": "The element appears only lightly or locally and usually should not affect recommendation results.",
+      "use_when": [
+        "该元素只在极少数场景中出现",
+        "该元素不是主要玩法、主要氛围或主要卖点",
+        "证据很弱，但可以作为建模参考记录"
+      ],
+      "export_policy": {
+        "default_export_to_grs": false,
+        "reason_zh": "1 分标签默认只作为候选弱相关标签，不进入最终 GRS game_tags。",
+        "reason_en": "Weight-1 tags are weak candidate tags and should not be exported to final GRS game_tags by default."
+      },
+      "review_policy": {
+        "requires_review": true,
+        "review_hint_zh": "如果人工认为该标签对推荐确实有价值，应考虑是否提升到 3；否则保持不导出。",
+        "review_hint_en": "If a reviewer believes this tag is useful for recommendation, consider raising it to 3; otherwise keep it unexported."
+      }
+    },
+    {
+      "weight": 2,
+      "label_zh": "辅助弱相关",
+      "label_en": "Auxiliary Weak Relevance",
+      "definition_zh": "游戏中有一定体现，但不是主要体验，通常不应作为推荐主数据。",
+      "definition_en": "The element is present, but not a main experience, and usually should not be part of the main recommendation data.",
+      "use_when": [
+        "该元素存在并有一定证据",
+        "该元素能辅助理解游戏，但不是主要体验",
+        "该标签如果进入推荐数据，可能带来一定噪音"
+      ],
+      "export_policy": {
+        "default_export_to_grs": false,
+        "reason_zh": "2 分标签默认不进入最终 GRS game_tags，只作为审核参考；除非人工确认它对推荐有实际价值。",
+        "reason_en": "Weight-2 tags are not exported to final GRS game_tags by default and are mainly used as review references unless manually confirmed."
+      },
+      "review_policy": {
+        "requires_review": true,
+        "review_hint_zh": "如果该标签确实能稳定描述游戏体验，应提升到 3；如果只是局部体现，应保持不导出。",
+        "review_hint_en": "If this tag reliably describes the game experience, raise it to 3; if it is only locally present, keep it unexported."
+      }
+    },
+    {
+      "weight": 3,
+      "label_zh": "明显相关",
+      "label_en": "Clearly Relevant",
+      "definition_zh": "该标签能较好描述游戏体验，是理解游戏的重要维度之一。",
+      "definition_en": "The tag clearly describes the game experience and is one important dimension of understanding the game.",
+      "use_when": [
+        "该元素是游戏的重要组成部分",
+        "玩家较容易通过该标签理解游戏体验",
+        "证据较充分，但该标签不一定是最核心卖点"
+      ],
+      "export_policy": {
+        "default_export_to_grs": true,
+        "reason_zh": "3 分及以上标签属于 GRS 推荐主数据，可进入最终 game_tags。",
+        "reason_en": "Tags with weight 3 or above are part of the main GRS recommendation data and can be exported to final game_tags."
+      },
+      "review_policy": {
+        "requires_review": false,
+        "review_hint_zh": "如果证据不足或标签数量过多，仍建议人工审核。",
+        "review_hint_en": "Human review is still recommended if evidence is weak or too many tags are selected."
+      }
+    },
+    {
+      "weight": 4,
+      "label_zh": "强相关",
+      "label_en": "Strongly Relevant",
+      "definition_zh": "该标签是游戏的重要体验之一，明显影响玩家对游戏的判断。",
+      "definition_en": "The tag is one of the game's major experiences and strongly affects how players understand the game.",
+      "use_when": [
+        "该元素是主要玩法、主要氛围或主要体验之一",
+        "游戏宣传、页面描述、评论摘要或玩法结构都明显支持该标签",
+        "缺少该标签会明显误读游戏"
+      ],
+      "export_policy": {
+        "default_export_to_grs": true,
+        "reason_zh": "4 分标签应默认进入最终 GRS game_tags。",
+        "reason_en": "Weight-4 tags should be exported to final GRS game_tags by default."
+      },
+      "review_policy": {
+        "requires_review": false,
+        "review_hint_zh": "如果多个标签都被评为 4 或 5，需要检查是否存在过度建模。",
+        "review_hint_en": "If many tags are rated 4 or 5, check whether the game is being over-modeled."
+      }
+    },
+    {
+      "weight": 5,
+      "label_zh": "核心体验标签",
+      "label_en": "Core Experience Tag",
+      "definition_zh": "该标签是理解这个游戏的关键，属于最核心的体验特征之一。",
+      "definition_en": "The tag is essential to understanding the game and represents one of its core experience pillars.",
+      "use_when": [
+        "该元素是游戏最主要的吸引力之一",
+        "大多数玩家或页面资料都会用类似概念描述该游戏",
+        "没有该标签会严重误导推荐系统"
+      ],
+      "export_policy": {
+        "default_export_to_grs": true,
+        "reason_zh": "5 分标签必须进入最终 GRS game_tags，除非人工审核后明确移除。",
+        "reason_en": "Weight-5 tags must be exported to final GRS game_tags unless explicitly removed during human review."
+      },
+      "review_policy": {
+        "requires_review": false,
+        "review_hint_zh": "5 分应非常克制使用。通常一个游戏不应有过多 5 分标签。",
+        "review_hint_en": "Weight 5 should be used carefully. A game should usually not have too many weight-5 tags."
+      }
+    }
+  ],
+  "tag_count_policy": {
+    "recommended_range": {
+      "min": 4,
+      "max": 6
+    },
+    "allowed_range": {
+      "min": 3,
+      "max": 7
+    },
+    "review_required_when": [
+      {
+        "condition": "exported_tag_count < 3",
+        "reason_zh": "导出标签过少，可能无法充分描述游戏体验。",
+        "reason_en": "Too few exported tags may not describe the game experience sufficiently."
+      },
+      {
+        "condition": "exported_tag_count > 7",
+        "reason_zh": "导出标签过多，可能导致推荐噪音或标签数量偏置。",
+        "reason_en": "Too many exported tags may introduce recommendation noise or tag-count bias."
+      },
+      {
+        "condition": "exported_tag_count < 4 or exported_tag_count > 6",
+        "reason_zh": "不在推荐范围内，但仍在允许范围内，需要轻度审核。",
+        "reason_en": "Outside the recommended range but still allowed; light review is required."
+      }
+    ],
+    "guidelines": [
+      {
+        "zh": "不要为了凑数量而加入 1–2 分弱相关标签。",
+        "en": "Do not add weight-1 or weight-2 weak tags just to reach the recommended tag count."
+      },
+      {
+        "zh": "复杂游戏可以有 6–7 个导出标签，但需要确保每个标签都有明确证据。",
+        "en": "Complex games may have 6-7 exported tags, but each tag must have clear evidence."
+      },
+      {
+        "zh": "体验非常集中的游戏可以只有 3 个导出标签，但需要确认没有遗漏核心维度。",
+        "en": "Highly focused games may have only 3 exported tags, but reviewers should ensure no core dimension is missing."
+      },
+      {
+        "zh": "最终进入 GRS game_tags 的标签通常应为 3–5 分。",
+        "en": "Tags exported to final GRS game_tags should usually have weights from 3 to 5."
+      }
+    ]
+  },
+  "export_policy": {
+    "default_rules": [
+      {
+        "condition": "suggested_weight >= 3",
+        "should_export_to_grs": true,
+        "description_zh": "3–5 分标签默认进入 GRS 推荐主数据。",
+        "description_en": "Tags with weights 3-5 are exported to the main GRS recommendation data by default."
+      },
+      {
+        "condition": "suggested_weight <= 2",
+        "should_export_to_grs": false,
+        "description_zh": "1–2 分标签默认只作为候选弱相关标签，不进入最终 GRS game_tags。",
+        "description_en": "Tags with weights 1-2 are weak candidate tags and are not exported to final GRS game_tags by default."
+      }
+    ],
+    "manual_override": {
+      "allowed": true,
+      "description_zh": "人工审核可以覆盖默认导出策略，但必须留下审核理由。",
+      "description_en": "Human reviewers may override the default export policy, but must provide a review reason."
+    }
+  },
+  "global_guidelines": [
+    {
+      "zh": "不要给太多标签 5 分。5 分只应给核心体验。",
+      "en": "Do not assign too many weight-5 tags. Weight 5 should be reserved for core experiences."
+    },
+    {
+      "zh": "推荐导出 4–6 个主要标签，允许 3–7 个，超出范围必须审核。",
+      "en": "Exporting 4-6 main tags is recommended; 3-7 is allowed; outside this range requires review."
+    },
+    {
+      "zh": "1–2 分标签可以作为 GMA 候选建议出现，但默认不进入 GRS 最终推荐数据。",
+      "en": "Weight-1 and weight-2 tags may appear as GMA candidate suggestions, but are not exported to final GRS recommendation data by default."
+    },
+    {
+      "zh": "如果一个 1–2 分标签被人工确认应该进入 GRS，通常应考虑是否将权重提升到 3。",
+      "en": "If a weight-1 or weight-2 tag is manually confirmed for export to GRS, reviewers should consider whether it should be raised to weight 3."
+    },
+    {
+      "zh": "如果证据不足，应该降低 confidence 或标记审核，而不是随意调整 weight。",
+      "en": "If evidence is insufficient, lower confidence or mark for review instead of arbitrarily changing weight."
+    },
+    {
+      "zh": "标签必须来自 GRS 现有标签集合，不能创建新标签。",
+      "en": "Tags must come from the existing GRS tag set. New tags are not allowed."
+    }
+  ],
+  "confidence_scale": {
+    "range": "0.0-1.0",
+    "definition": "Confidence measures how certain the model is about the suggested tag and weight.",
+    "guidelines": [
+      {
+        "range": "0.80-1.00",
+        "meaning_zh": "证据充分，判断稳定",
+        "meaning_en": "Strong evidence and stable judgment",
+        "review_hint_zh": "通常可以接受，但仍应通过基础校验。",
+        "review_hint_en": "Usually acceptable, but should still pass basic validation."
+      },
+      {
+        "range": "0.60-0.79",
+        "meaning_zh": "证据较充分，但仍建议人工确认",
+        "meaning_en": "Reasonable evidence, but human review is still recommended",
+        "review_hint_zh": "适合进入人工审核列表。",
+        "review_hint_en": "Suitable for human review."
+      },
+      {
+        "range": "0.40-0.59",
+        "meaning_zh": "证据有限，需要重点审核",
+        "meaning_en": "Limited evidence; requires careful review",
+        "review_hint_zh": "不应自动导出，除非人工确认。",
+        "review_hint_en": "Should not be automatically exported unless manually confirmed."
+      },
+      {
+        "range": "0.00-0.39",
+        "meaning_zh": "证据不足，不建议采纳",
+        "meaning_en": "Insufficient evidence; not recommended for acceptance",
+        "review_hint_zh": "建议移除或触发二次分析。",
+        "review_hint_en": "Recommended for removal or re-analysis."
+      }
+    ]
+  },
+  "validation_rules": [
+    {
+      "rule_id": "exported_tags_recommended_range",
+      "description_zh": "最终导出标签推荐数量为 4–6 个。",
+      "description_en": "The recommended number of exported tags is 4-6.",
+      "severity": "warning"
+    },
+    {
+      "rule_id": "exported_tags_allowed_range",
+      "description_zh": "最终导出标签允许数量为 3–7 个；超出范围必须审核。",
+      "description_en": "The allowed number of exported tags is 3-7; outside this range requires review.",
+      "severity": "review_required"
+    },
+    {
+      "rule_id": "weak_tags_not_exported_by_default",
+      "description_zh": "1–2 分标签默认不得进入最终 GRS game_tags。",
+      "description_en": "Weight-1 and weight-2 tags must not be exported to final GRS game_tags by default.",
+      "severity": "review_required_if_overridden"
+    },
+    {
+      "rule_id": "too_many_core_tags",
+      "description_zh": "如果 5 分标签超过 3 个，需要人工审核是否过度建模。",
+      "description_en": "If more than 3 tags have weight 5, human review is required to check for over-modeling.",
+      "severity": "warning"
+    },
+    {
+      "rule_id": "evidence_required",
+      "description_zh": "每个建议标签都必须有至少一个证据片段。",
+      "description_en": "Every suggested tag must include at least one evidence snippet.",
+      "severity": "error"
+    }
+  ]
+}

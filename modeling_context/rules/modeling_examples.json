@@ -1,0 +1,237 @@
+[
+  {
+    "game_code": "baldurs_gate_3",
+    "name_zh": "博德之门 3",
+    "name_en": "Baldur's Gate 3",
+    "tags": [
+      {
+        "tag_code": "story_rich",
+        "weight": 5,
+        "reason_zh": "剧情、任务、角色关系和世界观是游戏核心体验。",
+        "evidence_type": "narrative and quest structure"
+      },
+      {
+        "tag_code": "choices_matter",
+        "weight": 5,
+        "reason_zh": "玩家选择会明显影响任务结果、角色关系和剧情走向。",
+        "evidence_type": "meaningful player choices"
+      },
+      {
+        "tag_code": "build_variety",
+        "weight": 5,
+        "reason_zh": "职业、技能、队伍组合和战斗路线提供高度构筑空间。",
+        "evidence_type": "class and build systems"
+      },
+      {
+        "tag_code": "character_growth",
+        "weight": 4,
+        "reason_zh": "同伴角色和玩家角色都有明显成长与关系发展。",
+        "evidence_type": "character progression and companion arcs"
+      },
+      {
+        "tag_code": "strategy",
+        "weight": 4,
+        "reason_zh": "战斗和任务解决方式需要计划、站位和资源判断。",
+        "evidence_type": "tactical combat and decision-making"
+      },
+      {
+        "tag_code": "immersive",
+        "weight": 4,
+        "reason_zh": "世界细节、角色互动和任务反馈带来较强代入感。",
+        "evidence_type": "world detail and role-playing immersion"
+      }
+    ],
+    "negative_examples": [
+      {
+        "tag_code": "fast_paced",
+        "reason_zh": "游戏有战斗，但节奏并非快速反应型。"
+      },
+      {
+        "tag_code": "competitive",
+        "reason_zh": "核心体验不是玩家之间的竞技对抗。"
+      }
+    ]
+  },
+  {
+    "game_code": "detroit_become_human",
+    "name_zh": "底特律：化身为人",
+    "name_en": "Detroit: Become Human",
+    "tags": [
+      {
+        "tag_code": "story_rich",
+        "weight": 5,
+        "reason_zh": "游戏以电影化叙事和多角色剧情推进为核心。",
+        "evidence_type": "cinematic narrative"
+      },
+      {
+        "tag_code": "choices_matter",
+        "weight": 5,
+        "reason_zh": "玩家选择会显著影响剧情分支、角色命运和结局。",
+        "evidence_type": "branching choices and outcomes"
+      },
+      {
+        "tag_code": "immersive",
+        "weight": 4,
+        "reason_zh": "电影化演出和情境选择强化角色代入感。",
+        "evidence_type": "cinematic presentation"
+      },
+      {
+        "tag_code": "character_growth",
+        "weight": 3,
+        "reason_zh": "角色经历和立场变化重要，但玩法重点仍是剧情选择。",
+        "evidence_type": "character arcs"
+      }
+    ],
+    "negative_examples": [
+      {
+        "tag_code": "combat",
+        "reason_zh": "游戏不是以战斗系统为核心。"
+      },
+      {
+        "tag_code": "open_world",
+        "reason_zh": "游戏结构不是开放世界。"
+      }
+    ]
+  },
+  {
+    "game_code": "red_dead_redemption_2",
+    "name_zh": "荒野大镖客：救赎 2",
+    "name_en": "Red Dead Redemption 2",
+    "tags": [
+      {
+        "tag_code": "story_rich",
+        "weight": 5,
+        "reason_zh": "主线剧情、角色关系和帮派叙事是核心体验。",
+        "evidence_type": "main story and character drama"
+      },
+      {
+        "tag_code": "open_world",
+        "weight": 5,
+        "reason_zh": "游戏提供大规模开放世界与自由行动空间。",
+        "evidence_type": "large open world"
+      },
+      {
+        "tag_code": "immersive",
+        "weight": 5,
+        "reason_zh": "环境细节、动画、交互和世界反馈极大增强沉浸感。",
+        "evidence_type": "world detail and simulation"
+      },
+      {
+        "tag_code": "exploration",
+        "weight": 4,
+        "reason_zh": "玩家可以在开放世界中发现地点、事件和隐藏内容。",
+        "evidence_type": "world discovery"
+      },
+      {
+        "tag_code": "character_growth",
+        "weight": 4,
+        "reason_zh": "角色命运、关系变化和人物弧光是重要体验。",
+        "evidence_type": "character development"
+      }
+    ],
+    "negative_examples": [
+      {
+        "tag_code": "build_variety",
+        "reason_zh": "游戏有装备和武器，但不是以流派构筑为核心。"
+      },
+      {
+        "tag_code": "competitive",
+        "reason_zh": "核心体验不是竞技对抗。"
+      }
+    ]
+  },
+  {
+    "game_code": "elden_ring",
+    "name_zh": "艾尔登法环",
+    "name_en": "Elden Ring",
+    "tags": [
+      {
+        "tag_code": "challenge",
+        "weight": 5,
+        "reason_zh": "高难战斗、失败学习和 Boss 挑战是核心体验。",
+        "evidence_type": "high difficulty and boss encounters"
+      },
+      {
+        "tag_code": "exploration",
+        "weight": 5,
+        "reason_zh": "游戏鼓励玩家主动探索未知区域、隐藏路线和秘密内容。",
+        "evidence_type": "discovery-driven world"
+      },
+      {
+        "tag_code": "build_variety",
+        "weight": 5,
+        "reason_zh": "武器、法术、属性和装备组合提供高度构筑空间。",
+        "evidence_type": "character builds and equipment"
+      },
+      {
+        "tag_code": "combat",
+        "weight": 4,
+        "reason_zh": "战斗系统是游戏核心循环之一。",
+        "evidence_type": "combat mechanics"
+      },
+      {
+        "tag_code": "open_world",
+        "weight": 4,
+        "reason_zh": "开放地图结构提供自由探索路径。",
+        "evidence_type": "open world structure"
+      }
+    ],
+    "negative_examples": [
+      {
+        "tag_code": "relaxed",
+        "reason_zh": "游戏整体体验具有较强压力，不应归为轻松休闲。"
+      },
+      {
+        "tag_code": "choices_matter",
+        "reason_zh": "虽然有任务选择，但不是主要体验支柱。"
+      }
+    ]
+  },
+  {
+    "game_code": "skyrim_special_edition",
+    "name_zh": "上古卷轴 V：天际特别版",
+    "name_en": "The Elder Scrolls V: Skyrim Special Edition",
+    "tags": [
+      {
+        "tag_code": "open_world",
+        "weight": 5,
+        "reason_zh": "游戏核心体验建立在大规模开放世界结构之上。",
+        "evidence_type": "large open world"
+      },
+      {
+        "tag_code": "exploration",
+        "weight": 5,
+        "reason_zh": "玩家可以自由发现地点、任务、洞窟和隐藏内容。",
+        "evidence_type": "free exploration"
+      },
+      {
+        "tag_code": "build_variety",
+        "weight": 4,
+        "reason_zh": "技能、装备、职业倾向和玩法路线提供多样构筑。",
+        "evidence_type": "skills and playstyle variety"
+      },
+      {
+        "tag_code": "immersive",
+        "weight": 4,
+        "reason_zh": "开放世界、角色扮演和环境细节带来较强代入感。",
+        "evidence_type": "role-playing immersion"
+      },
+      {
+        "tag_code": "story_rich",
+        "weight": 3,
+        "reason_zh": "游戏有大量任务和世界叙事，但剧情不是唯一核心。",
+        "evidence_type": "quests and lore"
+      }
+    ],
+    "negative_examples": [
+      {
+        "tag_code": "competitive",
+        "reason_zh": "核心体验不是玩家竞技对抗。"
+      },
+      {
+        "tag_code": "horror_tension",
+        "reason_zh": "部分地下城有压迫感，但整体不是恐怖体验。"
+      }
+    ]
+  }
+]

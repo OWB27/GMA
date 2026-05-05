@@ -1,0 +1,382 @@
+[
+  {
+    "code": "story_rich",
+    "name_zh": "剧情沉浸",
+    "name_en": "Story Rich",
+    "description_zh": "以剧情推进、叙事体验、世界观表达或角色事件作为主要吸引力。",
+    "description_en": "Games where narrative, story progression, world-building, or major character events are a core appeal.",
+    "use_when": [
+      "游戏的主要体验依赖剧情推进或叙事结构",
+      "玩家需要通过故事理解游戏世界或角色动机",
+      "剧情内容明显影响玩家投入感"
+    ],
+    "do_not_use_when": [
+      "游戏只是有背景设定，但玩法主要不依赖剧情",
+      "剧情只是包装，玩家主要体验来自竞技、刷装备或操作",
+      "只有少量任务文本或简单过场"
+    ],
+    "close_tags": ["choices_matter", "character_growth", "immersive"],
+    "distinction_zh": "story_rich 强调故事内容本身；choices_matter 强调选择影响结果；character_growth 强调角色成长；immersive 强调整体代入感。"
+  },
+  {
+    "code": "character_growth",
+    "name_zh": "角色成长",
+    "name_en": "Character Growth",
+    "description_zh": "强调角色能力、关系、人格、身份或成长线的持续变化。",
+    "description_en": "Games where character progression, relationships, identity, or personal growth are meaningful parts of the experience.",
+    "use_when": [
+      "角色有清晰成长线或人物弧光",
+      "玩家能明显感受到角色能力、关系或身份变化",
+      "角色塑造是体验的重要部分"
+    ],
+    "do_not_use_when": [
+      "只有数值升级，没有明显角色塑造",
+      "角色只是操作载体",
+      "成长系统存在但不是主要体验"
+    ],
+    "close_tags": ["story_rich", "build_variety", "social_sim"],
+    "distinction_zh": "character_growth 关注角色本身的成长；build_variety 关注玩法构筑；social_sim 关注关系互动。"
+  },
+  {
+    "code": "open_world",
+    "name_zh": "开放世界",
+    "name_en": "Open World",
+    "description_zh": "游戏提供大规模、非线性、可自由移动和探索的开放地图结构。",
+    "description_en": "Games with a large, open, non-linear world structure that allows free movement and exploration.",
+    "use_when": [
+      "游戏世界是大规模开放地图",
+      "玩家可以自由选择路线或探索顺序",
+      "开放空间是核心体验之一"
+    ],
+    "do_not_use_when": [
+      "只是有关卡选择，不是真正开放地图",
+      "地图较大但路线高度线性",
+      "游戏主要体验不依赖开放世界结构"
+    ],
+    "close_tags": ["exploration", "immersive"],
+    "distinction_zh": "open_world 强调世界结构开放；exploration 强调发现未知内容的体验。二者可以同时出现，但不能互相替代。"
+  },
+  {
+    "code": "exploration",
+    "name_zh": "自由探索",
+    "name_en": "Exploration",
+    "description_zh": "强调发现地点、路线、秘密、谜题、隐藏内容或未知世界的体验。",
+    "description_en": "Games where discovering places, routes, secrets, hidden content, or unknown worlds is a major experience.",
+    "use_when": [
+      "玩家需要主动探索世界或环境",
+      "发现隐藏区域、秘密、路径或线索是重要乐趣",
+      "游戏鼓励好奇心和自主发现"
+    ],
+    "do_not_use_when": [
+      "游戏只是地图大，但没有明显探索奖励",
+      "主要体验是战斗、竞技或线性剧情",
+      "玩家几乎没有主动探索空间"
+    ],
+    "close_tags": ["open_world", "puzzle_solving", "immersive"],
+    "distinction_zh": "exploration 强调探索体验；open_world 强调地图结构；puzzle_solving 强调解谜推理。"
+  },
+  {
+    "code": "fast_paced",
+    "name_zh": "快节奏",
+    "name_en": "Fast-Paced",
+    "description_zh": "强调快速反应、连续操作、高频反馈或紧凑节奏。",
+    "description_en": "Games that emphasize quick reactions, continuous action, frequent feedback, or rapid pacing.",
+    "use_when": [
+      "游戏节奏快，要求持续操作或反应",
+      "战斗、移动或对局推进速度快",
+      "玩家体验主要来自紧张、高频反馈"
+    ],
+    "do_not_use_when": [
+      "游戏有战斗但节奏较慢",
+      "主要体验是策略规划或探索",
+      "节奏快只是局部内容"
+    ],
+    "close_tags": ["combat", "competitive", "challenge"],
+    "distinction_zh": "fast_paced 强调节奏；combat 强调战斗；competitive 强调玩家对抗；challenge 强调难度压力。"
+  },
+  {
+    "code": "combat",
+    "name_zh": "战斗驱动",
+    "name_en": "Combat",
+    "description_zh": "战斗系统、动作操作、武器技能或敌人对抗是主要玩法体验。",
+    "description_en": "Games where combat systems, action mechanics, weapons, skills, or enemy encounters are central to gameplay.",
+    "use_when": [
+      "战斗是游戏核心循环之一",
+      "玩家需要频繁与敌人对抗",
+      "武器、技能、动作或战斗策略是主要体验"
+    ],
+    "do_not_use_when": [
+      "游戏只有少量战斗作为辅助内容",
+      "主要体验是剧情、社交、建造或解谜",
+      "冲突存在但不是可操作战斗"
+    ],
+    "close_tags": ["fast_paced", "challenge", "build_variety"],
+    "distinction_zh": "combat 只说明战斗重要，不一定代表高难；challenge 才强调难度。"
+  },
+  {
+    "code": "challenge",
+    "name_zh": "高难挑战",
+    "name_en": "Challenge",
+    "description_zh": "强调失败成本、学习曲线、操作要求、策略要求或克服难度的成就感。",
+    "description_en": "Games that emphasize difficulty, failure pressure, learning curves, execution demands, or the satisfaction of overcoming obstacles.",
+    "use_when": [
+      "游戏以高难度或失败压力著称",
+      "玩家需要反复学习机制或提升技巧",
+      "克服困难是核心乐趣"
+    ],
+    "do_not_use_when": [
+      "游戏有战斗但难度普通",
+      "只是内容复杂，不代表高难",
+      "挑战只存在于可选模式或少数关卡"
+    ],
+    "close_tags": ["combat", "survival", "strategy"],
+    "distinction_zh": "challenge 强调难度和失败压力；combat 强调战斗系统；survival 强调生存资源压力。"
+  },
+  {
+    "code": "competitive",
+    "name_zh": "竞技对抗",
+    "name_en": "Competitive",
+    "description_zh": "强调玩家对抗、排名、胜负、竞技技巧或多人比赛。",
+    "description_en": "Games focused on player-versus-player competition, ranking, winning, competitive skill, or multiplayer matches.",
+    "use_when": [
+      "核心体验来自玩家对抗",
+      "胜负、排名或竞技表现很重要",
+      "游戏有明确竞技环境或多人比赛结构"
+    ],
+    "do_not_use_when": [
+      "只是有多人合作，不强调对抗",
+      "玩家之间互动不是核心",
+      "竞争只是局部可选模式"
+    ],
+    "close_tags": ["fast_paced", "challenge", "combat"],
+    "distinction_zh": "competitive 必须有玩家之间的竞技或胜负压力；combat 可以是单人战斗。"
+  },
+  {
+    "code": "relaxed",
+    "name_zh": "轻松休闲",
+    "name_en": "Relaxed",
+    "description_zh": "整体体验低压力、节奏舒缓、适合放松，不强调失败惩罚或强对抗。",
+    "description_en": "Games with low pressure, gentle pacing, and a relaxing experience, without strong punishment or intense competition.",
+    "use_when": [
+      "游戏目标压力低",
+      "节奏较慢或可自由安排",
+      "适合放松游玩"
+    ],
+    "do_not_use_when": [
+      "游戏核心包含强失败压力",
+      "主要体验是恐怖、竞技或高难挑战",
+      "只有部分休闲内容但整体压力较高"
+    ],
+    "close_tags": ["cozy", "social_sim"],
+    "distinction_zh": "relaxed 强调低压力；cozy 强调温暖治愈氛围。"
+  },
+  {
+    "code": "choices_matter",
+    "name_zh": "选择导向",
+    "name_en": "Choices Matter",
+    "description_zh": "玩家选择会明显影响剧情走向、角色关系、任务结果或结局。",
+    "description_en": "Games where player choices meaningfully affect story paths, relationships, mission outcomes, or endings.",
+    "use_when": [
+      "玩家选择会改变剧情或结局",
+      "对话、行为或阵营选择有明显后果",
+      "选择是游戏体验的重要组成部分"
+    ],
+    "do_not_use_when": [
+      "选择只是表面分支，没有实际后果",
+      "游戏只是剧情丰富，但玩家不能影响结果",
+      "只有少量无关紧要的对话选项"
+    ],
+    "close_tags": ["story_rich", "character_growth"],
+    "distinction_zh": "story_rich 可以没有选择分支；choices_matter 必须有选择影响结果的证据。"
+  },
+  {
+    "code": "immersive",
+    "name_zh": "沉浸体验",
+    "name_en": "Immersive",
+    "description_zh": "通过世界氛围、视听表现、角色代入、环境细节或系统一致性形成强代入感。",
+    "description_en": "Games that create strong immersion through atmosphere, audiovisual design, role embodiment, environmental detail, or systemic consistency.",
+    "use_when": [
+      "游戏世界或氛围让玩家有强代入感",
+      "环境细节、视听表现或系统设计增强沉浸",
+      "玩家容易被世界和体验吸引"
+    ],
+    "do_not_use_when": [
+      "只是画面好，但体验不依赖沉浸",
+      "游戏主要是抽象策略或竞技",
+      "沉浸感不是核心卖点"
+    ],
+    "close_tags": ["story_rich", "open_world", "horror_tension"],
+    "distinction_zh": "immersive 是整体代入感，不等同于剧情丰富或开放世界。"
+  },
+  {
+    "code": "strategy",
+    "name_zh": "策略规划",
+    "name_en": "Strategy",
+    "description_zh": "强调计划、判断、长期决策、战术安排或系统性思考。",
+    "description_en": "Games that emphasize planning, judgment, long-term decision-making, tactics, or systemic thinking.",
+    "use_when": [
+      "玩家需要制定计划或策略",
+      "决策对结果有明显影响",
+      "战术、布局或管理思考是主要乐趣"
+    ],
+    "do_not_use_when": [
+      "只是有少量选择，不需要策略规划",
+      "主要靠操作反应而非计划",
+      "系统复杂但玩家决策空间很小"
+    ],
+    "close_tags": ["resource_management", "build_variety", "challenge"],
+    "distinction_zh": "strategy 强调决策和规划；resource_management 强调资源分配；build_variety 强调玩法构筑。"
+  },
+  {
+    "code": "resource_management",
+    "name_zh": "资源管理",
+    "name_en": "Resource Management",
+    "description_zh": "强调资源获取、分配、消耗、取舍和长期管理。",
+    "description_en": "Games that emphasize acquiring, allocating, spending, trading off, and managing resources over time.",
+    "use_when": [
+      "资源分配直接影响进程或成败",
+      "玩家需要管理金钱、材料、人口、时间、补给等",
+      "取舍和长期规划是主要体验"
+    ],
+    "do_not_use_when": [
+      "资源只是普通货币或道具，不影响核心玩法",
+      "主要体验是战斗或剧情",
+      "资源系统很轻"
+    ],
+    "close_tags": ["strategy", "survival"],
+    "distinction_zh": "resource_management 强调资源取舍；strategy 更广泛，包含战术和长期决策。"
+  },
+  {
+    "code": "build_variety",
+    "name_zh": "流派构筑",
+    "name_en": "Build Variety",
+    "description_zh": "强调角色、装备、技能、职业、路线或玩法流派的多样构筑。",
+    "description_en": "Games that emphasize varied builds through characters, equipment, skills, classes, routes, or playstyles.",
+    "use_when": [
+      "玩家可以构建不同流派或玩法路线",
+      "装备、技能、职业或加点会明显改变体验",
+      "重复游玩时可以尝试不同构筑"
+    ],
+    "do_not_use_when": [
+      "只有简单升级，没有明显构筑差异",
+      "装备变化不影响玩法风格",
+      "构筑只是轻度辅助"
+    ],
+    "close_tags": ["character_growth", "replayable", "strategy"],
+    "distinction_zh": "build_variety 强调玩法构筑；character_growth 强调角色成长；replayable 强调重复游玩价值。"
+  },
+  {
+    "code": "replayable",
+    "name_zh": "重复可玩",
+    "name_en": "Replayable",
+    "description_zh": "游戏具有反复游玩、长期投入、多周目、随机性或不同路线的价值。",
+    "description_en": "Games with strong replay value through repeated runs, long-term play, multiple routes, randomness, or varied outcomes.",
+    "use_when": [
+      "游戏适合长期游玩或多次游玩",
+      "不同路线、构筑、随机性或结局带来重复价值",
+      "每次游玩体验可能不同"
+    ],
+    "do_not_use_when": [
+      "游戏主要是一次性剧情体验",
+      "通关后缺少新变化",
+      "重复游玩只是刷数值"
+    ],
+    "close_tags": ["build_variety", "choices_matter", "competitive"],
+    "distinction_zh": "replayable 强调重复价值；build_variety 是其中一种来源，但不是唯一来源。"
+  },
+  {
+    "code": "cozy",
+    "name_zh": "轻松治愈",
+    "name_en": "Cozy",
+    "description_zh": "强调温暖、治愈、陪伴感、生活感或舒适氛围。",
+    "description_en": "Games with a warm, soothing, comforting, life-sim-like, or emotionally gentle atmosphere.",
+    "use_when": [
+      "游戏氛围温和治愈",
+      "玩家体验主要来自陪伴、生活、建设或轻松成长",
+      "没有强烈压力或惩罚"
+    ],
+    "do_not_use_when": [
+      "游戏只是低难度，但氛围不治愈",
+      "核心体验是恐怖、竞技或高压生存",
+      "只有少量可爱元素"
+    ],
+    "close_tags": ["relaxed", "social_sim"],
+    "distinction_zh": "cozy 强调情绪氛围；relaxed 强调低压力；social_sim 强调社交关系系统。"
+  },
+  {
+    "code": "puzzle_solving",
+    "name_zh": "解谜思考",
+    "name_en": "Puzzle Solving",
+    "description_zh": "强调观察、推理、线索组合、空间理解或逻辑解谜。",
+    "description_en": "Games that emphasize observation, reasoning, clue combination, spatial understanding, or logical puzzle-solving.",
+    "use_when": [
+      "解谜是主要玩法之一",
+      "玩家需要观察、推理或理解规则",
+      "谜题解决带来主要成就感"
+    ],
+    "do_not_use_when": [
+      "只有少量简单机关",
+      "主要体验是战斗或剧情",
+      "复杂系统不是以解谜为目的"
+    ],
+    "close_tags": ["exploration", "strategy"],
+    "distinction_zh": "puzzle_solving 强调解题；exploration 强调发现；strategy 强调整体决策规划。"
+  },
+  {
+    "code": "survival",
+    "name_zh": "生存挑战",
+    "name_en": "Survival",
+    "description_zh": "强调维持生命、资源压力、环境威胁、补给管理或持续生存。",
+    "description_en": "Games focused on staying alive under resource pressure, environmental threats, supply management, or survival systems.",
+    "use_when": [
+      "生存压力是核心体验",
+      "玩家需要管理饥饿、健康、资源、环境或敌对威胁",
+      "失败通常和资源或生存状态有关"
+    ],
+    "do_not_use_when": [
+      "游戏只是有生命值或死亡机制",
+      "主要体验是普通战斗或探索",
+      "生存元素很轻"
+    ],
+    "close_tags": ["resource_management", "challenge", "horror_tension"],
+    "distinction_zh": "survival 强调维持生存；resource_management 更广泛；challenge 强调难度压力。"
+  },
+  {
+    "code": "social_sim",
+    "name_zh": "社交模拟",
+    "name_en": "Social Sim",
+    "description_zh": "强调角色关系、社交互动、社区生活、好感度或人际经营。",
+    "description_en": "Games that emphasize relationships, social interaction, community life, affection systems, or interpersonal management.",
+    "use_when": [
+      "玩家与 NPC 或社区关系是主要内容",
+      "好感度、社交事件或人际关系影响体验",
+      "日常互动和关系经营是重要玩法"
+    ],
+    "do_not_use_when": [
+      "只是有对话，但关系系统不重要",
+      "多人在线不等于社交模拟",
+      "角色互动只是剧情表现"
+    ],
+    "close_tags": ["cozy", "character_growth"],
+    "distinction_zh": "social_sim 强调关系系统；cozy 强调氛围；character_growth 强调角色成长。"
+  },
+  {
+    "code": "horror_tension",
+    "name_zh": "恐怖压迫",
+    "name_en": "Horror Tension",
+    "description_zh": "强调恐怖、紧张、压迫、不安、追逐或心理压力。",
+    "description_en": "Games that emphasize horror, dread, pressure, unease, pursuit, or psychological tension.",
+    "use_when": [
+      "恐怖或紧张感是核心体验",
+      "游戏通过氛围、敌人、资源或未知制造压迫",
+      "玩家主要感受包括恐惧、不安或紧张"
+    ],
+    "do_not_use_when": [
+      "只是有黑暗场景或怪物元素",
+      "恐怖只是局部氛围",
+      "主要体验是动作或解谜，压力不强"
+    ],
+    "close_tags": ["survival", "immersive", "challenge"],
+    "distinction_zh": "horror_tension 强调情绪压迫；survival 强调生存机制；immersive 强调代入感。"
+  }
+]
