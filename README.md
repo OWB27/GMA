@@ -14,6 +14,12 @@ Stage 1 builds the backend foundation only:
 
 It does not include LangGraph, Tavily, LangChain, database models, or frontend code yet.
 
+Stage 2 adds the first database layer:
+
+- SQLModel tables for modeling jobs and related snapshots
+- JSONB storage for source bundles, model drafts, review results, and workflow event payloads
+- Alembic migration setup
+
 ## Local Backend Setup
 
 ```bash
@@ -40,6 +46,13 @@ Run tests:
 ```bash
 cd backend
 uv run pytest
+```
+
+Run database migrations:
+
+```bash
+cd backend
+uv run alembic upgrade head
 ```
 
 ## Environment Variables
