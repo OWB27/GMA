@@ -1,5 +1,6 @@
 from typing import Any
 
+from app.chains.modeling_chain import ModelingChain
 from app.graph.state import GMAGraphState
 from app.services.grs_context.grs_context_service import GRSContextService
 from app.services.source_collection.source_collection_service import SourceCollectionService
@@ -88,8 +89,16 @@ def model_game_tags_mock_node(state: GMAGraphState) -> dict[str, Any]:
                 "tag_code": "combat",
                 "suggested_weight": 4,
                 "confidence": 0.8,
-                "evidence_snippets": ["Mock evidence from collected source bundle."],
-                "reason": "Mock reason showing how a future LLM output will be shaped.",
+                "evidence_snippets": [
+                    {
+                        "en": "Mock evidence from collected source bundle.",
+                        "zh": "来自已收集 source bundle 的模拟证据。",
+                    }
+                ],
+                "reason": {
+                    "en": "Mock reason showing how a future LLM output will be shaped.",
+                    "zh": "模拟理由，用来展示未来 LLM 输出的结构。",
+                },
             }
         ],
         "warnings": [],
@@ -99,6 +108,45 @@ def model_game_tags_mock_node(state: GMAGraphState) -> dict[str, Any]:
         "modeling_result": modeling_result,
         "status": "modeled",
         "trace": append_trace(state, "model_game_tags_mock", "Mock modeling result generated."),
+    }
+
+
+def model_game_tags_node(state: GMAGraphState) -> dict[str, Any]:
+    if state["source_bundle"] is None:
+        return {
+            "status": "failed",
+            "errors": [*state["errors"], "source_bundle is required before modeling."],
+            "trace": append_trace(state, "model_game_tags", "Modeling failed because source_bundle is missing."),
+        }
+    if state["retrieved_context"] is None:
+        return {
+            "status": "failed",
+            "errors": [*state["errors"], "retrieved_context is required before modeling."],
+            "trace": append_trace(state, "model_game_tags", "Modeling failed because retrieved_context is missing."),
+        }
+
+    try:
+        modeling_result = ModelingChain().invoke(
+            game_name=state["game_name"],
+            steam_url=state["steam_url"],
+            source_bundle=state["source_bundle"],
+            retrieved_context=state["retrieved_context"],
+        )
+    except Exception as error:
+        return {
+            "status": "failed",
+            "errors": [*state["errors"], f"model_game_tags failed: {error}"],
+            "trace": append_trace(
+                state,
+                "model_game_tags",
+                "Modeling failed during the LLM structured output step.",
+            ),
+        }
+
+    return {
+        "modeling_result": modeling_result.model_dump(),
+        "status": "modeled",
+        "trace": append_trace(state, "model_game_tags", "Structured modeling result generated."),
     }
 
 
