@@ -48,6 +48,7 @@ class ModelingChain:
                     "Do not create new tags. Steam user tags are evidence, not final GRS tags. "
                     "Use suggested_weight for tag strength from 1 to 5. "
                     "Use confidence for certainty from 0 to 1. "
+                    "Don't be super confident about the result, If you think you can't really tell, just lower the confidence score."
                     "Every selected tag must include evidence snippets from the source bundle. "
                     "For each evidence snippet, provide both English and Simplified Chinese text. "
                     "For each reason, provide both English and Simplified Chinese text. "
