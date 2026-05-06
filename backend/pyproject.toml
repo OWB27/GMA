@@ -9,9 +9,10 @@ dependencies = [
     "langgraph>=0.2.0",
     "uvicorn[standard]>=0.30.0",
     "pydantic-settings>=2.4.0",
-    "sqlmodel>=0.0.22",
     "psycopg[binary]>=3.2.0",
     "python-dotenv>=1.0.1",
+    "requests>=2.32.0",
+    "sqlmodel>=0.0.22",
 ]
 
 [dependency-groups]

@@ -12,7 +12,7 @@ Stage 1 builds the backend foundation only:
 - local PostgreSQL through Docker Compose
 - first health-check test
 
-It does not include LangGraph, Tavily, LangChain, database models, or frontend code yet.
+It does not include LangGraph, LangChain, database models, or frontend code yet.
 
 Stage 2 adds the first database layer:
 
@@ -26,6 +26,12 @@ Stage 3 adds the first mock workflow:
 - sequential mock nodes
 - a temporary `/workflow/run-mock` endpoint
 - workflow tests
+
+Stage 4 adds the first real source collection adapter:
+
+- Steam official appdetails and store page tag extraction
+- structured source bundle schema
+- a temporary `/workflow/run-source-collection` endpoint
 
 ## Local Backend Setup
 
@@ -69,4 +75,3 @@ The backend reads configuration from environment variables or `backend/.env`.
 - `ENVIRONMENT`: local, test, staging, or production
 - `DATABASE_URL`: PostgreSQL connection string
 - `OPENAI_API_KEY`: reserved for later LangChain/OpenAI stages
-- `TAVILY_API_KEY`: reserved for later Tavily integration

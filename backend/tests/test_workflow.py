@@ -46,3 +46,17 @@ def test_mock_workflow_api_route() -> None:
     assert body["status"] == "finished"
     assert body["game_name"] == "Hades"
     assert body["modeling_result"]["selected_existing_tags"][0]["tag_code"] == "combat"
+
+
+def test_source_collection_workflow_route_exists() -> None:
+    client = TestClient(create_app())
+
+    response = client.post(
+        "/workflow/run-source-collection",
+        json={
+            "game_name": "",
+            "steam_url": "https://store.steampowered.com/not-an-app/",
+        },
+    )
+
+    assert response.status_code == 422

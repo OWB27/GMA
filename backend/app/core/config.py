@@ -13,7 +13,6 @@ class Settings(BaseSettings):
         alias="DATABASE_URL",
     )
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
-    tavily_api_key: str | None = Field(default=None, alias="TAVILY_API_KEY")
 
     model_config = SettingsConfigDict(
         env_file=".env",

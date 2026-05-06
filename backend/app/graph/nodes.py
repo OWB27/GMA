@@ -1,6 +1,7 @@
 from typing import Any
 
 from app.graph.state import GMAGraphState
+from app.services.source_collection.source_collection_service import SourceCollectionService
 
 
 def append_trace(state: GMAGraphState, node: str, message: str) -> list[dict[str, Any]]:
@@ -23,7 +24,7 @@ def start_node(state: GMAGraphState) -> dict[str, Any]:
 def collect_sources_mock_node(state: GMAGraphState) -> dict[str, Any]:
     source_bundle = {
         "short_description": f"Mock short description for {state['game_name']}.",
-        "detailed_description": "Mock detailed description reserved for the future Tavily node.",
+        "detailed_description": "Mock detailed description reserved for the Steam source collection node.",
         "review_summary": "Mock review summary.",
         "page_text": "Mock Steam page text.",
         "source_urls": [state["steam_url"]],
@@ -34,6 +35,23 @@ def collect_sources_mock_node(state: GMAGraphState) -> dict[str, Any]:
         "source_bundle": source_bundle,
         "status": "sources_collected",
         "trace": append_trace(state, "collect_sources_mock", "Mock source bundle collected."),
+    }
+
+
+def collect_sources_node(state: GMAGraphState) -> dict[str, Any]:
+    source_bundle = SourceCollectionService().collect_sources(
+        game_name=state["game_name"],
+        steam_url=state["steam_url"],
+    )
+
+    return {
+        "source_bundle": source_bundle.model_dump(),
+        "status": "sources_collected",
+        "trace": append_trace(
+            state,
+            "collect_sources",
+            "Source bundle collected from Steam official data.",
+        ),
     }
 
 
