@@ -60,3 +60,21 @@ def test_source_collection_workflow_route_exists() -> None:
     )
 
     assert response.status_code == 422
+
+
+def test_source_collection_workflow_uses_real_grs_context_node() -> None:
+    client = TestClient(create_app())
+
+    response = client.post(
+        "/workflow/run-source-collection",
+        json={
+            "game_name": "Invalid App",
+            "steam_url": "https://store.steampowered.com/not-an-app/",
+        },
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["retrieved_context"]["weight_scale"]["scale"] == "1-5"
+    assert len(body["retrieved_context"]["allowed_tags"]) == 20
+    assert "retrieve_grs_context" in [entry["node"] for entry in body["trace"]]

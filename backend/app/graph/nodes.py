@@ -1,6 +1,7 @@
 from typing import Any
 
 from app.graph.state import GMAGraphState
+from app.services.grs_context.grs_context_service import GRSContextService
 from app.services.source_collection.source_collection_service import SourceCollectionService
 
 
@@ -66,6 +67,16 @@ def retrieve_grs_context_mock_node(state: GMAGraphState) -> dict[str, Any]:
         "retrieved_context": retrieved_context,
         "status": "context_retrieved",
         "trace": append_trace(state, "retrieve_grs_context_mock", "Mock GRS context retrieved."),
+    }
+
+
+def retrieve_grs_context_node(state: GMAGraphState) -> dict[str, Any]:
+    retrieved_context = GRSContextService().retrieve_context()
+
+    return {
+        "retrieved_context": retrieved_context.model_dump(),
+        "status": "context_retrieved",
+        "trace": append_trace(state, "retrieve_grs_context", "GRS rule pack context retrieved."),
     }
 
 
