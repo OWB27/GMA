@@ -1,6 +1,6 @@
 from app.graph.nodes import retrieve_grs_context_node
 from app.graph.state import create_initial_state
-from app.graph.workflow import route_after_modeling, route_after_validation
+from app.graph.workflow import route_after_modeling
 
 
 def test_retrieve_grs_context_node_loads_real_rule_pack() -> None:
@@ -35,22 +35,3 @@ def test_route_after_modeling_validates_successful_modeling() -> None:
 
     assert route_after_modeling(state) == "validate_result"
 
-
-def test_route_after_validation_sends_valid_result_to_finish() -> None:
-    state = create_initial_state(
-        game_name="Hades",
-        steam_url="https://store.steampowered.com/app/1145360/Hades/",
-    )
-    state["validation_result"] = {"is_valid": True, "errors": [], "warnings": []}
-
-    assert route_after_validation(state) == "finish"
-
-
-def test_route_after_validation_sends_invalid_result_to_manual_review() -> None:
-    state = create_initial_state(
-        game_name="Hades",
-        steam_url="https://store.steampowered.com/app/1145360/Hades/",
-    )
-    state["validation_result"] = {"is_valid": False, "errors": ["Unknown tag."], "warnings": []}
-
-    assert route_after_validation(state) == "mark_needs_manual_review"

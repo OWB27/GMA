@@ -116,22 +116,11 @@ def validate_result_node(state: GMAGraphState) -> dict[str, Any]:
     }
 
 
-def mark_needs_manual_review_node(state: GMAGraphState) -> dict[str, Any]:
-    return {
-        "status": "needs_manual_review",
-        "trace": append_trace(
-            state,
-            "mark_needs_manual_review",
-            "Workflow marked for manual review after validation.",
-        ),
-    }
-
-
 def finish_node(state: GMAGraphState) -> dict[str, Any]:
-    if state["status"] in {"failed", "needs_manual_review"}:
+    if state["status"] == "failed":
         return {
             "status": state["status"],
-            "trace": append_trace(state, "finish", "Workflow finished with reviewable or failed status."),
+            "trace": append_trace(state, "finish", "Workflow finished with failed status."),
         }
 
     return {

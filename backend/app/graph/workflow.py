@@ -5,20 +5,12 @@ from langgraph.graph import END, START, StateGraph
 from app.graph.nodes import (
     collect_sources_node,
     finish_node,
-    mark_needs_manual_review_node,
     model_game_tags_node,
     retrieve_grs_context_node,
     start_node,
     validate_result_node,
 )
 from app.graph.state import GMAGraphState, create_initial_state
-
-
-def route_after_validation(state: GMAGraphState) -> str:
-    validation_result = state["validation_result"] or {}
-    if validation_result.get("is_valid") is True:
-        return "finish"
-    return "mark_needs_manual_review"
 
 
 def route_after_modeling(state: GMAGraphState) -> str:
@@ -36,7 +28,6 @@ def build_modeling_workflow():
     graph_builder.add_node("retrieve_grs_context", retrieve_grs_context_node)
     graph_builder.add_node("model_game_tags", model_game_tags_node)
     graph_builder.add_node("validate_result", validate_result_node)
-    graph_builder.add_node("mark_needs_manual_review", mark_needs_manual_review_node)
     graph_builder.add_node("finish", finish_node)
 
     graph_builder.add_edge(START, "start")
@@ -51,15 +42,7 @@ def build_modeling_workflow():
             "finish": "finish",
         },
     )
-    graph_builder.add_conditional_edges(
-        "validate_result",
-        route_after_validation,
-        {
-            "finish": "finish",
-            "mark_needs_manual_review": "mark_needs_manual_review",
-        },
-    )
-    graph_builder.add_edge("mark_needs_manual_review", "finish")
+    graph_builder.add_edge("validate_result", "finish")
     graph_builder.add_edge("finish", END)
 
     return graph_builder.compile()

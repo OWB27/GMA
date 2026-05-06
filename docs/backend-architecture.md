@@ -41,6 +41,7 @@ It is intentionally outside the graph. Graph nodes represent workflow steps; the
 ### LangGraph Workflow
 
 The workflow owns state transitions and routing. It decides which node runs next after modeling and validation.
+It does not decide whether a successful draft needs human review; every successful modeling run is persisted as a job that waits for review.
 
 Current routing:
 
@@ -50,8 +51,7 @@ model_game_tags
   modeled -> validate_result
 
 validate_result
-  valid -> finish
-  invalid -> mark_needs_manual_review -> finish
+  -> finish
 ```
 
 ### Graph Nodes
