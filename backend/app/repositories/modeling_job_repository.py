@@ -1,3 +1,5 @@
+"""Database access for modeling jobs and their related artifacts."""
+
 from uuid import UUID
 
 from sqlmodel import Session, select
@@ -21,6 +23,8 @@ from app.schemas.modeling import (
 
 
 class ModelingJobRepository:
+    """Persists jobs, source bundles, drafts, review results, and workflow events."""
+
     def __init__(self, session: Session) -> None:
         self.session = session
 

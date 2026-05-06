@@ -7,7 +7,7 @@ from app.schemas.modeling import (
     SourceBundleCreate,
     WorkflowEventCreate,
 )
-from app.services.modeling_job.modeling_job_service import ModelingJobService
+from app.services.modeling_run.modeling_run_service import ModelingRunService
 
 
 class FakeModelingJobRepository:
@@ -59,7 +59,7 @@ def test_create_and_run_job_persists_workflow_outputs() -> None:
             "trace": [{"node": "finish", "message": "Done."}],
         }
 
-    result = ModelingJobService(repository, workflow_runner).create_and_run_job(
+    result = ModelingRunService(repository, workflow_runner).create_and_run_job(
         ModelingJobCreate(
             game_name="Hades",
             steam_url="https://store.steampowered.com/app/1145360/Hades/",
@@ -90,7 +90,7 @@ def test_create_and_run_job_marks_failed_workflow_as_failed() -> None:
             "trace": [],
         }
 
-    ModelingJobService(repository, workflow_runner).create_and_run_job(
+    ModelingRunService(repository, workflow_runner).create_and_run_job(
         ModelingJobCreate(
             game_name="Hades",
             steam_url="https://store.steampowered.com/app/1145360/Hades/",

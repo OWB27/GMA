@@ -1,3 +1,5 @@
+"""Application service for creating and running a full modeling job."""
+
 from collections.abc import Callable
 from typing import Any
 
@@ -14,7 +16,9 @@ from app.schemas.modeling import (
 WorkflowRunner = Callable[[str, str, str | None], dict[str, Any]]
 
 
-class ModelingJobService:
+class ModelingRunService:
+    """Runs the full modeling use case and persists the workflow outputs."""
+
     def __init__(
         self,
         repository: ModelingJobRepository,
@@ -24,6 +28,7 @@ class ModelingJobService:
         self.workflow_runner = workflow_runner
 
     def create_and_run_job(self, data: ModelingJobCreate) -> dict[str, Any]:
+        """Create a job, run the modeling graph, then save the generated artifacts."""
         job = self.repository.create_job(data)
         self.repository.add_workflow_event(
             job=job,

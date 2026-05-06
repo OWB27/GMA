@@ -1,3 +1,5 @@
+"""Business validation for LLM-generated modeling drafts."""
+
 from typing import Any
 
 from pydantic import ValidationError
@@ -7,6 +9,8 @@ from app.schemas.validation_result import ValidationResult
 
 
 class ModelingResultValidator:
+    """Checks whether a structured model output is legal and reviewable for GMA."""
+
     def validate(
         self,
         modeling_result: dict[str, Any] | None,

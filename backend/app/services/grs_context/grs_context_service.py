@@ -1,8 +1,12 @@
+"""Builds the GRS modeling context consumed by the LLM modeling chain."""
+
 from app.schemas.grs_context import RetrievedGRSContext
 from app.services.grs_context.rule_pack_loader import RulePackLoader
 
 
 class GRSContextService:
+    """Loads the fixed GRS rule pack into a prompt-ready context object."""
+
     def __init__(self, rule_pack_loader: RulePackLoader | None = None) -> None:
         self.rule_pack_loader = rule_pack_loader or RulePackLoader()
 

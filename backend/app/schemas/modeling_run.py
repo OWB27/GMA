@@ -1,14 +1,9 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
-class RunMockWorkflowRequest(BaseModel):
-    game_name: str = Field(min_length=1, max_length=255)
-    steam_url: str = Field(min_length=1, max_length=2048)
-
-
-class RunMockWorkflowResponse(BaseModel):
+class ModelingRunResponse(BaseModel):
     job_id: str | None
     game_name: str
     steam_url: str

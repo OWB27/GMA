@@ -1,9 +1,13 @@
+"""Orchestrates Steam store and Steam review collection into one source bundle."""
+
 from app.schemas.source_bundle import SourceBundleData
 from app.services.source_collection.steam_review_service import SteamReviewService
 from app.services.source_collection.steam_store_service import SteamStoreService
 
 
 class SourceCollectionService:
+    """Collects the source evidence used by the modeling workflow."""
+
     def __init__(
         self,
         steam_store_service: SteamStoreService | None = None,

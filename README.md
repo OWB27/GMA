@@ -1,37 +1,60 @@
 # GMA
 
-GMA is the Game Modeling Agent for GRS. It produces reviewable game tag and weight modeling drafts for the existing GRS tag system.
+GMA is the Game Modeling Agent for GRS. It helps produce reviewable game tag and weight data for the existing GRS recommendation system.
 
-## Current Stage
+GMA is not a player-facing recommendation app. It is an upstream modeling tool: given a Steam game name and Steam URL, it collects Steam source data, retrieves the fixed GRS modeling context, asks an LLM for a structured draft, validates that draft, saves it for human review, and exports approved tags in a GRS-compatible format.
 
-Stage 1 builds the backend foundation only:
+## Current Backend Shape
 
-- FastAPI app skeleton
-- centralized settings
-- PostgreSQL connection setup
-- local PostgreSQL through Docker Compose
-- first health-check test
+The backend currently includes:
 
-It does not include LangGraph, LangChain, database models, or frontend code yet.
+- FastAPI API routes
+- PostgreSQL persistence through SQLModel
+- Alembic migrations
+- Steam source collection
+- GRS modeling rule-pack loading
+- LangGraph workflow orchestration
+- LangChain structured modeling chain
+- business validation for modeling drafts
+- human review and GRS export endpoints
 
-Stage 2 adds the first database layer:
+The frontend starts later. Stage 8.5 cleans the backend architecture before Stage 9 frontend work.
 
-- SQLModel tables for modeling jobs and related snapshots
-- JSONB storage for source bundles, model drafts, review results, and workflow event payloads
-- Alembic migration setup
+## Main API Surface
 
-Stage 3 adds the first mock workflow:
+```text
+GET  /health
+POST /modeling-jobs/run
+POST /modeling-jobs/{job_id}/review
+POST /modeling-jobs/{job_id}/export
+```
 
-- LangGraph state
-- sequential mock nodes
-- a temporary `/workflow/run-mock` endpoint
-- workflow tests
+`POST /modeling-jobs/run` is the main modeling entry point. It accepts:
 
-Stage 4 adds the first real source collection adapter:
+```json
+{
+  "game_name": "Hades",
+  "steam_url": "https://store.steampowered.com/app/1145360/Hades/"
+}
+```
 
-- Steam official appdetails and store page tag extraction
-- structured source bundle schema
-- a temporary `/workflow/run-source-collection` endpoint
+`POST /modeling-jobs/{job_id}/review` accepts only `approved` or `rejected` as human review decisions.
+
+`POST /modeling-jobs/{job_id}/export` returns a flat GRS-compatible payload:
+
+```json
+[
+  {
+    "game_code": "hades",
+    "tag_code": "combat",
+    "weight": 4
+  }
+]
+```
+
+## Backend Architecture
+
+See [docs/backend-architecture.md](docs/backend-architecture.md) for the responsibility boundaries between routes, services, graph nodes, chains, validators, repositories, and modeling context.
 
 ## Local Backend Setup
 
@@ -45,6 +68,13 @@ Start local PostgreSQL from the repository root:
 
 ```bash
 docker compose up -d postgres
+```
+
+Run database migrations:
+
+```bash
+cd backend
+uv run alembic upgrade head
 ```
 
 Run the backend:
@@ -61,17 +91,29 @@ cd backend
 uv run pytest
 ```
 
-Run database migrations:
-
-```bash
-cd backend
-uv run alembic upgrade head
-```
-
 ## Environment Variables
 
 The backend reads configuration from environment variables or `backend/.env`.
 
-- `ENVIRONMENT`: local, test, staging, or production
-- `DATABASE_URL`: PostgreSQL connection string
-- `OPENAI_API_KEY`: reserved for later LangChain/OpenAI stages
+```text
+ENVIRONMENT=local
+DATABASE_URL=postgresql+psycopg://gma:gma@localhost:5432/gma
+LLM_PROVIDER=openai_compatible
+LLM_MODEL=gpt-4.1-mini
+LLM_API_KEY=
+LLM_BASE_URL=
+LLM_TEMPERATURE=0
+LLM_STRUCTURED_OUTPUT_METHOD=json_schema
+```
+
+For DeepSeek or another OpenAI-compatible provider, use the provider base URL and prefer `LLM_STRUCTURED_OUTPUT_METHOD=json_mode`.
+
+## Project Boundaries
+
+- GMA only accepts `game_name` and `steam_url`.
+- GMA only models Steam games.
+- GMA only selects from the existing fixed GRS tag set.
+- GMA does not create new tags.
+- GMA does not write directly into the GRS production database.
+- GMA export is review-gated.
+- Tavily is not part of the current source collection path.

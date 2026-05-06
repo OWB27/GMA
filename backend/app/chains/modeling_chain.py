@@ -1,3 +1,5 @@
+"""LangChain modeling chain for turning evidence and GRS rules into a draft."""
+
 import json
 from typing import Any, Protocol
 
@@ -14,6 +16,8 @@ class ModelingChainRunnable(Protocol):
 
 
 class ModelingChain:
+    """Calls the configured chat model and returns a structured modeling result."""
+
     def __init__(self, runnable: ModelingChainRunnable | None = None) -> None:
         self.runnable = runnable
 
@@ -43,7 +47,7 @@ class ModelingChain:
             [
                 (
                     "system",
-                    "You are GMA, a game modeling Agent. "
+                    "You are GMA, a game modeling agent. "
                     "Your task is to select only existing tags and suggest weights for one Steam game. "
                     "Do not create new tags. Steam user tags are evidence, not final GRS tags. "
                     "Use suggested_weight for tag strength from 1 to 5. "
@@ -56,7 +60,7 @@ class ModelingChain:
                     "If evidence is insufficient for a tag, do not select it. "
                     "Return valid JSON that matches the requested schema. "
                     "JSON string values must not contain unescaped double quotes. "
-                    "When quoting phrases inside Chinese text, use Chinese quotation marks like “...” instead of English double quotes. "
+                    "When quoting phrases inside Chinese text, use Chinese-style quotation marks instead of English double quotes. "
                     "When quoting phrases inside English text, prefer single quotes like '...' instead of double quotes. "
                     "Do not wrap the JSON in Markdown code fences.",
                 ),

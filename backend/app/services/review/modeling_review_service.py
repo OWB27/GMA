@@ -1,3 +1,5 @@
+"""Human review and GRS export use cases for completed modeling runs."""
+
 from uuid import UUID
 from urllib.parse import urlparse
 
@@ -8,10 +10,14 @@ from app.schemas.review import GRSExportPayload, ReviewResultRequest, ReviewResu
 
 
 class ModelingReviewError(ValueError):
+    """Raised when a review or export action cannot be completed."""
+
     pass
 
 
 class ModelingReviewService:
+    """Saves human decisions and exports approved results for GRS import."""
+
     def __init__(self, repository: ModelingJobRepository) -> None:
         self.repository = repository
 
