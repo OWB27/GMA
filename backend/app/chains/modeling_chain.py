@@ -48,13 +48,17 @@ class ModelingChain:
                     "Do not create new tags. Steam user tags are evidence, not final GRS tags. "
                     "Use suggested_weight for tag strength from 1 to 5. "
                     "Use confidence for certainty from 0 to 1. "
-                    "Don't be super confident about the result, If you think you can't really tell, just lower the confidence score."
+                    "Do not be overly confident; if evidence is limited, lower the confidence score. "
                     "Every selected tag must include evidence snippets from the source bundle. "
                     "For each evidence snippet, provide both English and Simplified Chinese text. "
                     "For each reason, provide both English and Simplified Chinese text. "
                     "Keep English evidence faithful to the source. The Chinese evidence can be a concise translation. "
                     "If evidence is insufficient for a tag, do not select it. "
-                    "Return valid JSON that matches the requested schema.",
+                    "Return valid JSON that matches the requested schema. "
+                    "JSON string values must not contain unescaped double quotes. "
+                    "When quoting phrases inside Chinese text, use Chinese quotation marks like “...” instead of English double quotes. "
+                    "When quoting phrases inside English text, prefer single quotes like '...' instead of double quotes. "
+                    "Do not wrap the JSON in Markdown code fences.",
                 ),
                 (
                     "human",
