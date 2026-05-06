@@ -20,6 +20,13 @@ Stage 2 adds the first database layer:
 - JSONB storage for source bundles, model drafts, review results, and workflow event payloads
 - Alembic migration setup
 
+Stage 3 adds the first mock workflow:
+
+- LangGraph state
+- sequential mock nodes
+- a temporary `/workflow/run-mock` endpoint
+- workflow tests
+
 ## Local Backend Setup
 
 ```bash
