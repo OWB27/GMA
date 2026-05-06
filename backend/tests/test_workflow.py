@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 
 from app.graph.nodes import retrieve_grs_context_node
 from app.graph.state import create_initial_state
-from app.graph.workflow import run_mock_workflow
+from app.graph.workflow import route_after_modeling, route_after_validation, run_mock_workflow
 from app.main import create_app
 
 
@@ -75,3 +75,23 @@ def test_retrieve_grs_context_node_loads_real_rule_pack() -> None:
     assert result["retrieved_context"]["weight_scale"]["scale"] == "1-5"
     assert len(result["retrieved_context"]["allowed_tags"]) == 20
     assert result["trace"][0]["node"] == "retrieve_grs_context"
+
+
+def test_route_after_modeling_skips_validation_when_modeling_failed() -> None:
+    state = create_initial_state(
+        game_name="Hades",
+        steam_url="https://store.steampowered.com/app/1145360/Hades/",
+    )
+    state["status"] = "failed"
+
+    assert route_after_modeling(state) == "finish"
+
+
+def test_route_after_validation_sends_invalid_result_to_manual_review() -> None:
+    state = create_initial_state(
+        game_name="Hades",
+        steam_url="https://store.steampowered.com/app/1145360/Hades/",
+    )
+    state["validation_result"] = {"is_valid": False, "errors": ["Unknown tag."], "warnings": []}
+
+    assert route_after_validation(state) == "mark_needs_manual_review"

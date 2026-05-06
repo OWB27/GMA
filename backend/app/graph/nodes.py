@@ -3,6 +3,7 @@ from typing import Any
 from app.chains.modeling_chain import ModelingChain
 from app.graph.state import GMAGraphState
 from app.services.grs_context.grs_context_service import GRSContextService
+from app.services.modeling_validation.modeling_result_validator import ModelingResultValidator
 from app.services.source_collection.source_collection_service import SourceCollectionService
 
 
@@ -92,12 +93,12 @@ def model_game_tags_mock_node(state: GMAGraphState) -> dict[str, Any]:
                 "evidence_snippets": [
                     {
                         "en": "Mock evidence from collected source bundle.",
-                        "zh": "来自已收集 source bundle 的模拟证据。",
+                        "zh": "Mock evidence zh.",
                     }
                 ],
                 "reason": {
                     "en": "Mock reason showing how a future LLM output will be shaped.",
-                    "zh": "模拟理由，用来展示未来 LLM 输出的结构。",
+                    "zh": "Mock reason zh.",
                 },
             }
         ],
@@ -164,8 +165,45 @@ def validate_result_mock_node(state: GMAGraphState) -> dict[str, Any]:
     }
 
 
+def validate_result_node(state: GMAGraphState) -> dict[str, Any]:
+    validation_result = ModelingResultValidator().validate(
+        modeling_result=state["modeling_result"],
+        retrieved_context=state["retrieved_context"],
+    )
+    status = "validated" if validation_result.is_valid else "validation_failed"
+    trace_message = "Modeling result validation passed."
+    if not validation_result.is_valid:
+        trace_message = "Modeling result validation found errors."
+    elif validation_result.warnings:
+        trace_message = "Modeling result validation passed with warnings."
+
+    return {
+        "validation_result": validation_result.model_dump(),
+        "status": status,
+        "errors": [*state["errors"], *validation_result.errors],
+        "trace": append_trace(state, "validate_result", trace_message),
+    }
+
+
+def mark_needs_manual_review_node(state: GMAGraphState) -> dict[str, Any]:
+    return {
+        "status": "needs_manual_review",
+        "trace": append_trace(
+            state,
+            "mark_needs_manual_review",
+            "Workflow marked for manual review after validation.",
+        ),
+    }
+
+
 def finish_node(state: GMAGraphState) -> dict[str, Any]:
+    if state["status"] in {"failed", "needs_manual_review"}:
+        return {
+            "status": state["status"],
+            "trace": append_trace(state, "finish", "Workflow finished with reviewable or failed status."),
+        }
+
     return {
         "status": "finished",
-        "trace": append_trace(state, "finish", "Mock workflow finished."),
+        "trace": append_trace(state, "finish", "Workflow finished."),
     }

@@ -12,8 +12,8 @@ class FakeModelingChain:
                     "tag_code": "combat",
                     "suggested_weight": 4,
                     "confidence": 0.8,
-                    "evidence_snippets": [{"en": "Mock evidence.", "zh": "模拟证据。"}],
-                    "reason": {"en": "Mock reason.", "zh": "模拟理由。"},
+                    "evidence_snippets": [{"en": "Mock evidence.", "zh": "Mock evidence zh."}],
+                    "reason": {"en": "Mock reason.", "zh": "Mock reason zh."},
                 }
             ],
             warnings=[],
@@ -67,3 +67,33 @@ def test_model_game_tags_node_returns_failed_state_when_llm_call_fails(monkeypat
     assert result["status"] == "failed"
     assert "model_game_tags failed:" in result["errors"][0]
     assert result["trace"][0]["node"] == "model_game_tags"
+
+
+def test_validate_result_node_marks_invalid_result_for_review() -> None:
+    state = create_initial_state(
+        game_name="Hades",
+        steam_url="https://store.steampowered.com/app/1145360/Hades/",
+    )
+    state["modeling_result"] = {
+        "overall_summary": "Invalid draft.",
+        "selected_existing_tags": [
+            {
+                "tag_code": "not_allowed",
+                "suggested_weight": 3,
+                "confidence": 0.8,
+                "evidence_snippets": [{"en": "Mock evidence.", "zh": "Mock evidence zh."}],
+                "reason": {"en": "Mock reason.", "zh": "Mock reason zh."},
+            }
+        ],
+        "warnings": [],
+    }
+    state["retrieved_context"] = {
+        "allowed_tags": ["combat"],
+        "tag_combination_rules": {"rules": []},
+    }
+
+    result = nodes.validate_result_node(state)
+
+    assert result["status"] == "validation_failed"
+    assert result["validation_result"]["is_valid"] is False
+    assert "Unknown tag_code: not_allowed." in result["errors"]
