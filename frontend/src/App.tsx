@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import { Label } from "./components/ui/label";
+import type { ModelingRunResponse } from "./types/api";
 
 type ModelingJobForm = {
   gameName: string;
@@ -15,6 +16,7 @@ export default function App() {
     steamUrl: "",
   });
   const [submittedJob, setSubmittedJob] = useState<ModelingJobForm | null>(null);
+  const [mockRunResult] = useState<ModelingRunResponse | null>(null);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -98,6 +100,11 @@ export default function App() {
                 </div>
               </dl>
             </section>
+          ) : null}
+          {mockRunResult ? (
+            <p className="text-sm uppercase leading-6 text-[rgba(240,240,250,0.78)]">
+              Latest backend status: {mockRunResult.status}
+            </p>
           ) : null}
         </form>
       </section>
