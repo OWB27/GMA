@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import { CreateModelingJobForm, type ModelingJobForm } from "./components/modeling/CreateModelingJobForm";
 import { ModelingRunNotice } from "./components/modeling/ModelingRunNotice";
 import { runModelingJob } from "./lib/api";
+import { ModelingResultPage } from "./pages/ModelingResultPage";
 import type { ModelingRunResponse } from "./types/api";
 
 export default function App() {
@@ -41,6 +42,9 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-black px-6 py-10 text-[#f0f0fa] font-din">
+      {runResult ? (
+        <ModelingResultPage result={runResult} onCreateAnother={handleReset} />
+      ) : (
       <section className="mx-auto grid min-h-[calc(100vh-80px)] max-w-6xl items-end gap-12 md:grid-cols-[1.1fr_0.9fr]">
         <div>
           <p className="mb-3 text-[0.81rem] font-bold uppercase leading-none tracking-[1.17px]">
@@ -50,8 +54,8 @@ export default function App() {
             GMA Frontend Controls
           </h1>
           <p className="mt-6 max-w-2xl text-base uppercase leading-7 text-[rgba(240,240,250,0.82)]">
-            Stage 9.5 connects the controlled form to the backend modeling endpoint. The full result page comes later;
-            this step focuses on fetch, loading state, and error state.
+            Stage 9.6 sends the modeling request and switches to a result page when the backend returns a structured
+            response.
           </p>
         </div>
 
@@ -66,6 +70,7 @@ export default function App() {
           <ModelingRunNotice errorMessage={errorMessage} />
         </div>
       </section>
+      )}
     </main>
   );
 }
