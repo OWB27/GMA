@@ -13,3 +13,6 @@ build/
 .vscode/
 node_modules/
 *.tsbuildinfo
+package-lock.json
+frontend/vite.config.d.ts
+frontend/vite.config.js
