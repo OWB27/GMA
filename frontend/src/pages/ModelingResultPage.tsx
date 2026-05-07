@@ -39,11 +39,11 @@ export function ModelingResultPage({ result, onCreateAnother }: ModelingResultPa
 
       {heroImageUrl ? (
         <div
-          className="absolute inset-x-0 top-20 h-[52vh] bg-top bg-no-repeat opacity-95 [background-size:100vw_auto] sm:[background-size:112vw_auto] md:inset-0 md:h-auto md:bg-center md:[background-size:auto_clamp(620px,72vw,1120px)]"
+          className="absolute inset-x-0 top-20 h-[52vh] bg-top bg-no-repeat opacity-95 [background-size:100vw_auto] sm:[background-size:112vw_auto] md:top-0 md:h-[145vh] md:bg-center md:[background-size:auto_clamp(620px,72vw,1120px)]"
           style={{ backgroundImage: `url(${heroImageUrl})` }}
         />
       ) : null}
-      <div className="absolute inset-x-0 top-0 h-screen bg-[linear-gradient(90deg,rgba(0,0,0,0.94),rgba(0,0,0,0.66)_46%,rgba(0,0,0,0.48)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.94),rgba(0,0,0,0.66)_46%,rgba(0,0,0,0.48)_100%)]" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black to-transparent" />
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-80px)] max-w-6xl gap-10 py-24">
