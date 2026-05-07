@@ -1,26 +1,33 @@
 import { type FormEvent, useState } from "react";
 
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { Label } from "./components/ui/label";
+import { CreateModelingJobForm, type ModelingJobForm } from "./components/modeling/CreateModelingJobForm";
+import { ModelingRunNotice } from "./components/modeling/ModelingRunNotice";
+import { runModelingJob } from "./lib/api";
 import type { ModelingRunResponse } from "./types/api";
-
-type ModelingJobForm = {
-  gameName: string;
-  steamUrl: string;
-};
 
 export default function App() {
   const [form, setForm] = useState<ModelingJobForm>({
     gameName: "",
     steamUrl: "",
   });
-  const [submittedJob, setSubmittedJob] = useState<ModelingJobForm | null>(null);
-  const [mockRunResult] = useState<ModelingRunResponse | null>(null);
+  const [runResult, setRunResult] = useState<ModelingRunResponse | null>(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmittedJob(form);
+    setIsRunning(true);
+    setErrorMessage(null);
+
+    try {
+      const result = await runModelingJob(form.gameName, form.steamUrl);
+      setRunResult(result);
+    } catch (error) {
+      setRunResult(null);
+      setErrorMessage(error instanceof Error ? error.message : "Request failed.");
+    } finally {
+      setIsRunning(false);
+    }
   }
 
   function handleReset() {
@@ -28,7 +35,8 @@ export default function App() {
       gameName: "",
       steamUrl: "",
     });
-    setSubmittedJob(null);
+    setRunResult(null);
+    setErrorMessage(null);
   }
 
   return (
@@ -42,71 +50,21 @@ export default function App() {
             GMA Frontend Controls
           </h1>
           <p className="mt-6 max-w-2xl text-base uppercase leading-7 text-[rgba(240,240,250,0.82)]">
-            Stage 9.3 turns the static controls into a controlled React form. API wiring comes later; for now we only
-            prove that form state moves through React correctly.
+            Stage 9.5 connects the controlled form to the backend modeling endpoint. The full result page comes later;
+            this step focuses on fetch, loading state, and error state.
           </p>
         </div>
 
-        <form className="grid gap-8" onSubmit={handleSubmit}>
-          <div className="grid gap-3">
-            <Label htmlFor="game-name">Game Name</Label>
-            <Input
-              id="game-name"
-              value={form.gameName}
-              onChange={(event) => {
-                setForm({
-                  ...form,
-                  gameName: event.target.value,
-                });
-              }}
-              placeholder="e.g., Arc Raiders"
-              required
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="steam-url">Steam URL</Label>
-            <Input
-              id="steam-url"
-              value={form.steamUrl}
-              onChange={(event) => {
-                setForm({
-                  ...form,
-                  steamUrl: event.target.value,
-                });
-              }}
-              placeholder="https://store.steampowered.com/app/..."
-              required
-            />
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Button type="submit">Run Modeling</Button>
-            <Button type="button" variant="quiet" onClick={handleReset}>
-              Reset
-            </Button>
-          </div>
-          {submittedJob ? (
-            <section className="border-t border-[rgba(240,240,250,0.24)] pt-5">
-              <p className="mb-3 text-[0.63rem] font-bold uppercase leading-none tracking-[1px]">
-                Submitted Job Preview
-              </p>
-              <dl className="grid gap-3 text-sm uppercase leading-6 text-[rgba(240,240,250,0.78)]">
-                <div>
-                  <dt className="font-bold text-[#f0f0fa]">Game Name</dt>
-                  <dd className="m-0 break-words">{submittedJob.gameName}</dd>
-                </div>
-                <div>
-                  <dt className="font-bold text-[#f0f0fa]">Steam URL</dt>
-                  <dd className="m-0 break-words">{submittedJob.steamUrl}</dd>
-                </div>
-              </dl>
-            </section>
-          ) : null}
-          {mockRunResult ? (
-            <p className="text-sm uppercase leading-6 text-[rgba(240,240,250,0.78)]">
-              Latest backend status: {mockRunResult.status}
-            </p>
-          ) : null}
-        </form>
+        <div className="grid gap-5">
+          <CreateModelingJobForm
+            form={form}
+            isRunning={isRunning}
+            onFormChange={setForm}
+            onReset={handleReset}
+            onSubmit={handleSubmit}
+          />
+          <ModelingRunNotice errorMessage={errorMessage} />
+        </div>
       </section>
     </main>
   );
