@@ -50,6 +50,14 @@ class ModelingJobRepository:
         statement = select(ReviewedModelingResult).where(ReviewedModelingResult.job_id == job_id)
         return self.session.exec(statement).first()
 
+    def get_latest_workflow_event(self, job_id: UUID, event_type: str) -> WorkflowEvent | None:
+        statement = (
+            select(WorkflowEvent)
+            .where(WorkflowEvent.job_id == job_id, WorkflowEvent.event_type == event_type)
+            .order_by(WorkflowEvent.created_at.desc())
+        )
+        return self.session.exec(statement).first()
+
     def list_jobs(self) -> list[ModelingJob]:
         statement = select(ModelingJob).order_by(ModelingJob.created_at.desc())
         return list(self.session.exec(statement).all())

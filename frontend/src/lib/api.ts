@@ -7,7 +7,7 @@ import type {
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 
-async function requestJson<T>(path: string, init: RequestInit): Promise<T> {
+async function requestJson<T>(path: string, init: RequestInit = {}): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: {
       "Content-Type": "application/json",
@@ -32,6 +32,10 @@ export function runModelingJob(gameName: string, steamUrl: string) {
       steam_url: steamUrl,
     }),
   });
+}
+
+export function getModelingJob(jobId: string) {
+  return requestJson<ModelingRunResponse>(`/modeling-jobs/${jobId}`);
 }
 
 export function submitReviewResult(jobId: string, request: ReviewResultRequest) {
