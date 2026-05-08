@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useExportGRSPayloadMutation } from "../../../hooks/review/useExportGRSPayloadMutation";
+import { getErrorMessage } from "../../../lib/errors";
 import { Button } from "../../ui/button";
 
 type HumanReviewExportActionsProps = {
@@ -22,7 +23,7 @@ export function HumanReviewExportActions({ jobId }: HumanReviewExportActionsProp
   }
 
   const exportError =
-    missingJobIdError ?? (exportMutation.error instanceof Error ? exportMutation.error.message : null);
+    missingJobIdError ?? (exportMutation.error ? getErrorMessage(exportMutation.error) : null);
   const exportPayload = exportMutation.data ?? null;
 
   return (

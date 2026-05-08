@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useSubmitReviewMutation } from "../../../hooks/review/useSubmitReviewMutation";
+import { getErrorMessage } from "../../../lib/errors";
 import type { ReviewStatus, ReviewedTagInput } from "../../../types/api";
 import { Button } from "../../ui/button";
 import { HumanReviewExportActions } from "./HumanReviewExportActions";
@@ -33,8 +34,7 @@ export function HumanReviewActions({ jobId, reviewedTags }: HumanReviewActionsPr
   }
 
   const submitError =
-    missingJobIdError ??
-    (submitReviewMutation.error instanceof Error ? submitReviewMutation.error.message : null);
+    missingJobIdError ?? (submitReviewMutation.error ? getErrorMessage(submitReviewMutation.error) : null);
   const submittedReview = submitReviewMutation.data ?? null;
   const canExport = submittedReview?.review_status === "approved";
 

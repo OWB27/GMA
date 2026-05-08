@@ -3,6 +3,7 @@ import { type FormEvent, useState } from "react";
 import { CreateModelingJobForm, type ModelingJobForm } from "./components/modeling/create/CreateModelingJobForm";
 import { ModelingRunNotice } from "./components/modeling/create/ModelingRunNotice";
 import { useRunModelingJobMutation } from "./hooks/modeling/useRunModelingJobMutation";
+import { getErrorMessage } from "./lib/errors";
 import { ModelingResultPage } from "./pages/ModelingResultPage";
 import type { ModelingRunResponse } from "./types/api";
 
@@ -42,7 +43,7 @@ export default function App() {
     runModelingMutation.reset();
   }
 
-  const errorMessage = runModelingMutation.error instanceof Error ? runModelingMutation.error.message : null;
+  const errorMessage = runModelingMutation.error ? getErrorMessage(runModelingMutation.error) : null;
 
   return (
     <main className="min-h-screen bg-black px-6 py-10 text-[#f0f0fa] font-din">
