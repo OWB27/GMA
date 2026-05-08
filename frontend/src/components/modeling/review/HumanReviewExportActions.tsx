@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { exportGRSPayload } from "../../../lib/api";
-import type { GRSExportPayload } from "../../../types/api";
+import { useExportGRSPayloadMutation } from "../../../hooks/review/useExportGRSPayloadMutation";
 import { Button } from "../../ui/button";
 
 type HumanReviewExportActionsProps = {
@@ -9,29 +8,22 @@ type HumanReviewExportActionsProps = {
 };
 
 export function HumanReviewExportActions({ jobId }: HumanReviewExportActionsProps) {
-  const [isExporting, setIsExporting] = useState(false);
-  const [exportError, setExportError] = useState<string | null>(null);
-  const [exportPayload, setExportPayload] = useState<GRSExportPayload | null>(null);
+  const [missingJobIdError, setMissingJobIdError] = useState<string | null>(null);
+  const exportMutation = useExportGRSPayloadMutation();
 
-  async function handleExport() {
+  function handleExport() {
     if (!jobId) {
-      setExportError("Cannot export because this modeling result has no job id.");
+      setMissingJobIdError("Cannot export because this modeling result has no job id.");
       return;
     }
 
-    setIsExporting(true);
-    setExportError(null);
-
-    try {
-      const response = await exportGRSPayload(jobId);
-      setExportPayload(response);
-    } catch (error) {
-      setExportPayload(null);
-      setExportError(error instanceof Error ? error.message : "Export request failed.");
-    } finally {
-      setIsExporting(false);
-    }
+    setMissingJobIdError(null);
+    exportMutation.mutate({ jobId });
   }
+
+  const exportError =
+    missingJobIdError ?? (exportMutation.error instanceof Error ? exportMutation.error.message : null);
+  const exportPayload = exportMutation.data ?? null;
 
   return (
     <>
@@ -42,7 +34,7 @@ export function HumanReviewExportActions({ jobId }: HumanReviewExportActionsProp
       ) : null}
 
       <div className="mt-8">
-        <Button type="button" variant="quiet" disabled={isExporting} onClick={() => void handleExport()}>
+        <Button type="button" variant="quiet" disabled={exportMutation.isPending} onClick={handleExport}>
           Export GRS Payload
         </Button>
       </div>
