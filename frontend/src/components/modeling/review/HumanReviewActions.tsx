@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import { submitReviewResult } from "../../../lib/api";
-import type { ReviewResultResponse, ReviewStatus, ReviewedTagInput } from "../../../types/api";
+import { useSubmitReviewMutation } from "../../../hooks/review/useSubmitReviewMutation";
+import type { ReviewStatus, ReviewedTagInput } from "../../../types/api";
 import { Button } from "../../ui/button";
 import { HumanReviewExportActions } from "./HumanReviewExportActions";
 
@@ -12,34 +12,30 @@ type HumanReviewActionsProps = {
 
 export function HumanReviewActions({ jobId, reviewedTags }: HumanReviewActionsProps) {
   const [reviewerNotes, setReviewerNotes] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submittedReview, setSubmittedReview] = useState<ReviewResultResponse | null>(null);
+  const [missingJobIdError, setMissingJobIdError] = useState<string | null>(null);
+  const submitReviewMutation = useSubmitReviewMutation();
 
-  async function handleSubmitReview(reviewStatus: ReviewStatus) {
+  function handleSubmitReview(reviewStatus: ReviewStatus) {
     if (!jobId) {
-      setSubmitError("Cannot submit review because this modeling result has no job id.");
+      setMissingJobIdError("Cannot submit review because this modeling result has no job id.");
       return;
     }
 
-    setIsSubmitting(true);
-    setSubmitError(null);
-
-    try {
-      const response = await submitReviewResult(jobId, {
+    setMissingJobIdError(null);
+    submitReviewMutation.mutate({
+      jobId,
+      request: {
         reviewed_tags: reviewedTags,
         review_status: reviewStatus,
         reviewer_notes: reviewerNotes.trim() || null,
-      });
-      setSubmittedReview(response);
-    } catch (error) {
-      setSubmittedReview(null);
-      setSubmitError(error instanceof Error ? error.message : "Review request failed.");
-    } finally {
-      setIsSubmitting(false);
-    }
+      },
+    });
   }
 
+  const submitError =
+    missingJobIdError ??
+    (submitReviewMutation.error instanceof Error ? submitReviewMutation.error.message : null);
+  const submittedReview = submitReviewMutation.data ?? null;
   const canExport = submittedReview?.review_status === "approved";
 
   return (
@@ -71,7 +67,7 @@ export function HumanReviewActions({ jobId, reviewedTags }: HumanReviewActionsPr
       <div className="mt-8 flex flex-wrap gap-3">
         <Button
           type="button"
-          disabled={isSubmitting || reviewedTags.length === 0}
+          disabled={submitReviewMutation.isPending || reviewedTags.length === 0}
           onClick={() => void handleSubmitReview("approved")}
         >
           Approve Review
@@ -79,7 +75,7 @@ export function HumanReviewActions({ jobId, reviewedTags }: HumanReviewActionsPr
         <Button
           type="button"
           variant="quiet"
-          disabled={isSubmitting || reviewedTags.length === 0}
+          disabled={submitReviewMutation.isPending || reviewedTags.length === 0}
           onClick={() => void handleSubmitReview("rejected")}
         >
           Reject Review
