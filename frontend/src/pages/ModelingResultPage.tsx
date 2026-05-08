@@ -28,7 +28,10 @@ export function ModelingResultPage({ result, onCreateAnother }: ModelingResultPa
         {activeView === "steam-evidence" ? <SteamEvidenceSection result={result} /> : null}
         {activeView === "ai-tags" ? <AITagsSection result={result} /> : null}
         {activeView === "human-review" ? (
-          <HumanReviewSection selectedTags={result.modeling_result?.selected_existing_tags ?? []} />
+          <HumanReviewSection
+            jobId={result.job_id}
+            selectedTags={result.modeling_result?.selected_existing_tags ?? []}
+          />
         ) : null}
 
         <div>

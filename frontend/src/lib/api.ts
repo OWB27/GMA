@@ -1,4 +1,4 @@
-import type { ModelingRunResponse } from "../types/api";
+import type { ModelingRunResponse, ReviewResultRequest, ReviewResultResponse } from "../types/api";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 
@@ -26,5 +26,12 @@ export function runModelingJob(gameName: string, steamUrl: string) {
       game_name: gameName,
       steam_url: steamUrl,
     }),
+  });
+}
+
+export function submitReviewResult(jobId: string, request: ReviewResultRequest) {
+  return requestJson<ReviewResultResponse>(`/modeling-jobs/${jobId}/review`, {
+    method: "POST",
+    body: JSON.stringify(request),
   });
 }

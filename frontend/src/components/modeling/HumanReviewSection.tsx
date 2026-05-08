@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
 import { GRS_TAG_CODES, type GrsTagCode } from "../../constants/grsTags";
-import type { SelectedTagSuggestion } from "../../types/api";
+import type { ReviewedTagInput, SelectedTagSuggestion } from "../../types/api";
 import type { ReviewTagDraft } from "../../types/review";
 import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { HumanReviewActions } from "./HumanReviewActions";
 
 type HumanReviewSectionProps = {
+  jobId: string | null;
   selectedTags: SelectedTagSuggestion[];
 };
 
@@ -21,10 +23,28 @@ function normalizeTagCode(tagCode: string): GrsTagCode {
   return GRS_TAG_CODES.includes(tagCode as GrsTagCode) ? (tagCode as GrsTagCode) : GRS_TAG_CODES[0];
 }
 
-export function HumanReviewSection({ selectedTags }: HumanReviewSectionProps) {
+function buildReviewedTags(
+  tagDrafts: ReviewTagDraft[],
+  selectedTags: SelectedTagSuggestion[],
+): ReviewedTagInput[] {
+  return tagDrafts.map((draft) => {
+    const matchingSuggestion = selectedTags.find((tag) => tag.tag_code === draft.tagCode);
+
+    return {
+      tag_code: draft.tagCode,
+      weight: draft.weight,
+      confidence: matchingSuggestion?.confidence ?? null,
+      evidence_snippets: matchingSuggestion?.evidence_snippets ?? [],
+      reason: matchingSuggestion?.reason ?? null,
+    };
+  });
+}
+
+export function HumanReviewSection({ jobId, selectedTags }: HumanReviewSectionProps) {
   const [tagDrafts, setTagDrafts] = useState<ReviewTagDraft[]>(() =>
     createDraftsFromSuggestions(selectedTags),
   );
+  const reviewedTags = buildReviewedTags(tagDrafts, selectedTags);
 
   useEffect(() => {
     setTagDrafts(createDraftsFromSuggestions(selectedTags));
@@ -114,6 +134,8 @@ export function HumanReviewSection({ selectedTags }: HumanReviewSectionProps) {
           </article>
         ))}
       </div>
+
+      <HumanReviewActions jobId={jobId} reviewedTags={reviewedTags} />
     </section>
   );
 }
