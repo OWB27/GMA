@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { AITagsSection } from "../components/modeling/AITagsSection";
-import { HumanReviewSection } from "../components/modeling/HumanReviewSection";
-import { ResultPageBackground } from "../components/modeling/ResultPageBackground";
-import { ResultPageHeader } from "../components/modeling/ResultPageHeader";
-import { ResultViewTabs, type ResultView } from "../components/modeling/ResultViewTabs";
-import { SteamEvidenceSection } from "../components/modeling/SteamEvidenceSection";
+import { HumanReviewSection } from "../components/modeling/review/HumanReviewSection";
+import { AITagsSection } from "../components/modeling/result/AITagsSection";
+import { ResultPageBackground } from "../components/modeling/result/ResultPageBackground";
+import { ResultPageHeader } from "../components/modeling/result/ResultPageHeader";
+import { ResultViewTabs, type ResultView } from "../components/modeling/result/ResultViewTabs";
+import { SteamEvidenceSection } from "../components/modeling/result/SteamEvidenceSection";
 import { Button } from "../components/ui/button";
 import type { ModelingRunResponse } from "../types/api";
 

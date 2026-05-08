@@ -1,7 +1,7 @@
 import { type FormEvent, useState } from "react";
 
-import { CreateModelingJobForm, type ModelingJobForm } from "./components/modeling/CreateModelingJobForm";
-import { ModelingRunNotice } from "./components/modeling/ModelingRunNotice";
+import { CreateModelingJobForm, type ModelingJobForm } from "./components/modeling/create/CreateModelingJobForm";
+import { ModelingRunNotice } from "./components/modeling/create/ModelingRunNotice";
 import { runModelingJob } from "./lib/api";
 import { ModelingResultPage } from "./pages/ModelingResultPage";
 import type { ModelingRunResponse } from "./types/api";

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { exportGRSPayload } from "../../lib/api";
-import type { GRSExportPayload } from "../../types/api";
-import { Button } from "../ui/button";
+import { exportGRSPayload } from "../../../lib/api";
+import type { GRSExportPayload } from "../../../types/api";
+import { Button } from "../../ui/button";
 
 type HumanReviewExportActionsProps = {
   jobId: string | null;

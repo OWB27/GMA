@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { submitReviewResult } from "../../lib/api";
-import type { ReviewResultResponse, ReviewStatus, ReviewedTagInput } from "../../types/api";
-import { Button } from "../ui/button";
+import { submitReviewResult } from "../../../lib/api";
+import type { ReviewResultResponse, ReviewStatus, ReviewedTagInput } from "../../../types/api";
+import { Button } from "../../ui/button";
 import { HumanReviewExportActions } from "./HumanReviewExportActions";
 
 type HumanReviewActionsProps = {

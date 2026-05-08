@@ -1,4 +1,4 @@
-import type { GrsTagCode } from "../constants/grsTags";
+import type { GrsTagCode } from "../../constants/grsTags";
 
 export type ReviewTagDraft = {
   tagCode: GrsTagCode;

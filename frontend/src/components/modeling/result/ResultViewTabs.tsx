@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 export type ResultView = "steam-evidence" | "ai-tags" | "human-review";
 

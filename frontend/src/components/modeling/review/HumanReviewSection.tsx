@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { GRS_TAG_CODES, type GrsTagCode } from "../../constants/grsTags";
-import type { ReviewedTagInput, SelectedTagSuggestion } from "../../types/api";
-import type { ReviewTagDraft } from "../../types/review";
-import { Button } from "../ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { GRS_TAG_CODES, type GrsTagCode } from "../../../constants/grsTags";
+import type { ReviewedTagInput, SelectedTagSuggestion } from "../../../types/api";
+import type { ReviewTagDraft } from "../../../types/frontend/review";
+import { Button } from "../../ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";
 import { HumanReviewActions } from "./HumanReviewActions";
 
 type HumanReviewSectionProps = {

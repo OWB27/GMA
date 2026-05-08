@@ -1,4 +1,4 @@
-import type { ModelingRunResponse } from "../../types/api";
+import type { ModelingRunResponse } from "../../../types/api";
 
 type AITagsSectionProps = {
   result: ModelingRunResponse;
