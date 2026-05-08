@@ -106,14 +106,24 @@ class ModelingReviewService:
         parsed_url = urlparse(steam_url)
         path_parts = [part for part in parsed_url.path.split("/") if part]
         if len(path_parts) >= 3 and path_parts[0] == "app":
-            return self._slugify(path_parts[2])
-        return self._slugify(game_name)
+            slug = self._slugify(path_parts[2])
+            if slug:
+                return slug
+
+        slug = self._slugify(game_name)
+        if slug:
+            return slug
+
+        if len(path_parts) >= 2 and path_parts[0] == "app":
+            return f"steam_app_{path_parts[1]}"
+
+        return "unknown_game"
 
     def _slugify(self, value: str) -> str:
         normalized_chars: list[str] = []
         previous_was_separator = False
         for char in value.lower():
-            if char.isalnum():
+            if char.isascii() and char.isalnum():
                 normalized_chars.append(char)
                 previous_was_separator = False
             elif not previous_was_separator:

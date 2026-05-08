@@ -131,3 +131,15 @@ def test_export_game_code_falls_back_to_game_name_when_steam_slug_is_missing() -
     payload = service.export_grs_payload(repository.job.id)
 
     assert payload.model_dump()[0]["game_code"] == "life_is_strange"
+
+
+def test_export_game_code_falls_back_to_steam_app_id_when_slug_and_name_are_not_ascii() -> None:
+    repository = FakeReviewRepository()
+    repository.job.game_name = "漫威争锋"
+    repository.job.steam_url = "https://store.steampowered.com/app/2767030/_/"
+    service = ModelingReviewService(repository)
+    service.submit_review(repository.job.id, _review_request())
+
+    payload = service.export_grs_payload(repository.job.id)
+
+    assert payload.model_dump()[0]["game_code"] == "steam_app_2767030"
