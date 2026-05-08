@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 
-export type ResultView = "steam-evidence" | "ai-tags";
+export type ResultView = "steam-evidence" | "ai-tags" | "human-review";
 
 type ResultViewTabsProps = {
   activeView: ResultView;
@@ -23,6 +23,13 @@ export function ResultViewTabs({ activeView, onViewChange }: ResultViewTabsProps
         onClick={() => onViewChange("ai-tags")}
       >
         AI Tags
+      </Button>
+      <Button
+        type="button"
+        variant={activeView === "human-review" ? "ghost" : "quiet"}
+        onClick={() => onViewChange("human-review")}
+      >
+        Human Review
       </Button>
     </div>
   );

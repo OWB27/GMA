@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { AITagsSection } from "../components/modeling/AITagsSection";
+import { HumanReviewSection } from "../components/modeling/HumanReviewSection";
 import { ResultPageBackground } from "../components/modeling/ResultPageBackground";
 import { ResultPageHeader } from "../components/modeling/ResultPageHeader";
 import { ResultViewTabs, type ResultView } from "../components/modeling/ResultViewTabs";
@@ -26,6 +27,9 @@ export function ModelingResultPage({ result, onCreateAnother }: ModelingResultPa
 
         {activeView === "steam-evidence" ? <SteamEvidenceSection result={result} /> : null}
         {activeView === "ai-tags" ? <AITagsSection result={result} /> : null}
+        {activeView === "human-review" ? (
+          <HumanReviewSection selectedTags={result.modeling_result?.selected_existing_tags ?? []} />
+        ) : null}
 
         <div>
           <Button type="button" variant="quiet" onClick={onCreateAnother}>
