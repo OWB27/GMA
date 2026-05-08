@@ -3,6 +3,7 @@ import { useState } from "react";
 import { submitReviewResult } from "../../lib/api";
 import type { ReviewResultResponse, ReviewStatus, ReviewedTagInput } from "../../types/api";
 import { Button } from "../ui/button";
+import { HumanReviewExportActions } from "./HumanReviewExportActions";
 
 type HumanReviewActionsProps = {
   jobId: string | null;
@@ -38,6 +39,8 @@ export function HumanReviewActions({ jobId, reviewedTags }: HumanReviewActionsPr
       setIsSubmitting(false);
     }
   }
+
+  const canExport = submittedReview?.review_status === "approved";
 
   return (
     <div>
@@ -82,6 +85,8 @@ export function HumanReviewActions({ jobId, reviewedTags }: HumanReviewActionsPr
           Reject Review
         </Button>
       </div>
+
+      {canExport ? <HumanReviewExportActions jobId={jobId} /> : null}
     </div>
   );
 }

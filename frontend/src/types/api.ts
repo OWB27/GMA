@@ -81,3 +81,5 @@ export type GRSExportRecord = {
   tag_code: string;
   weight: number;
 };
+
+export type GRSExportPayload = GRSExportRecord[];
