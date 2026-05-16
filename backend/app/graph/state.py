@@ -6,6 +6,7 @@ class GMAGraphState(TypedDict):
     game_name: str
     steam_url: str
     source_bundle: dict[str, Any] | None
+    source_assessment: dict[str, Any] | None
     retrieved_context: dict[str, Any] | None
     modeling_result: dict[str, Any] | None
     validation_result: dict[str, Any] | None
@@ -24,6 +25,7 @@ def create_initial_state(
         "game_name": game_name,
         "steam_url": steam_url,
         "source_bundle": None,
+        "source_assessment": None,
         "retrieved_context": None,
         "modeling_result": None,
         "validation_result": None,

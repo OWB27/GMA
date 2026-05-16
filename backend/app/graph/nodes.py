@@ -7,7 +7,9 @@ focused service, chain, or validator.
 from typing import Any
 
 from app.chains.modeling_chain import ModelingChain
+from app.chains.source_assessment_chain import SourceAssessmentChain
 from app.graph.state import GMAGraphState
+from app.schemas.source_assessment import SourceAssessment
 from app.services.grs_context.grs_context_service import GRSContextService
 from app.services.modeling_validation.modeling_result_validator import ModelingResultValidator
 from app.services.source_collection.source_collection_service import SourceCollectionService
@@ -44,6 +46,44 @@ def collect_sources_node(state: GMAGraphState) -> dict[str, Any]:
             "collect_sources",
             "Source bundle collected from Steam official data.",
         ),
+    }
+
+
+def assess_source_sufficiency_node(state: GMAGraphState) -> dict[str, Any]:
+    if state["source_bundle"] is None:
+        return {
+            "status": "failed",
+            "errors": [*state["errors"], "source_bundle is required before source assessment."],
+            "trace": append_trace(
+                state,
+                "assess_source_sufficiency",
+                "Source assessment failed because source_bundle is missing.",
+            ),
+        }
+
+    try:
+        assessment = SourceAssessmentChain().invoke(
+            game_name=state["game_name"],
+            steam_url=state["steam_url"],
+            source_bundle=state["source_bundle"],
+        )
+    except Exception as error:
+        assessment = SourceAssessment(
+            is_sufficient=True,
+            confidence=0.5,
+            missing_information=["Source sufficiency assessment failed."],
+            reason=f"Assessment failed, so GMA continues with collected Steam evidence. Error: {error}",
+            recommended_action="continue_modeling",
+        )
+
+    trace_message = "Source evidence judged sufficient for modeling."
+    if not assessment.is_sufficient:
+        trace_message = "Source evidence judged insufficient; supplemental search is not enabled in Stage A."
+
+    return {
+        "source_assessment": assessment.model_dump(),
+        "status": "source_assessed",
+        "trace": append_trace(state, "assess_source_sufficiency", trace_message),
     }
 
 

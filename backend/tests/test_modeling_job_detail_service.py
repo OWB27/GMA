@@ -30,6 +30,13 @@ class FakeModelingJobRepository:
             payload={
                 "errors": [],
                 "trace": [{"node": "finish", "message": "Done."}],
+                "source_assessment": {
+                    "is_sufficient": True,
+                    "confidence": 0.82,
+                    "missing_information": [],
+                    "reason": "Enough evidence.",
+                    "recommended_action": "continue_modeling",
+                },
             },
         )
 
@@ -59,6 +66,7 @@ def test_get_job_detail_rebuilds_modeling_run_response() -> None:
     assert response.source_bundle == {"short_description": "Mock source."}
     assert response.modeling_result == {"selected_existing_tags": []}
     assert response.validation_result == {"is_valid": True, "errors": [], "warnings": []}
+    assert response.source_assessment["is_sufficient"] is True
     assert response.trace == [{"node": "finish", "message": "Done."}]
 
 

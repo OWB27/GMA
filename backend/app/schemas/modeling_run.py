@@ -8,6 +8,7 @@ class ModelingRunResponse(BaseModel):
     game_name: str
     steam_url: str
     source_bundle: dict[str, Any] | None
+    source_assessment: dict[str, Any] | None = None
     retrieved_context: dict[str, Any] | None
     modeling_result: dict[str, Any] | None
     validation_result: dict[str, Any] | None

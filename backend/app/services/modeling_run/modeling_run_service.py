@@ -69,6 +69,7 @@ class ModelingRunService:
                     "status": workflow_state.get("status"),
                     "errors": workflow_state.get("errors", []),
                     "trace": workflow_state.get("trace", []),
+                    "source_assessment": workflow_state.get("source_assessment"),
                 },
             ),
         )

@@ -31,6 +31,7 @@ class ModelingJobDetailService:
             game_name=job.game_name,
             steam_url=job.steam_url,
             source_bundle=source_bundle.raw_data if source_bundle is not None else None,
+            source_assessment=workflow_payload.get("source_assessment"),
             retrieved_context=None,
             modeling_result=modeling_draft.raw_model_output if modeling_draft is not None else None,
             validation_result=modeling_draft.validation_result if modeling_draft is not None else None,
