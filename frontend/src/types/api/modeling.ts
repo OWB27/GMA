@@ -10,6 +10,11 @@ export type SourceBundle = {
   official_genres?: string[];
   official_categories?: string[];
   popular_user_tags?: string[];
+  supplemental_sources?: {
+    title: string;
+    url: string;
+    content: string;
+  }[];
   page_text?: string | null;
   source_urls?: string[];
   extraction_notes?: string | null;
@@ -46,6 +51,7 @@ export type SourceAssessment = {
   missing_information: string[];
   reason: string;
   recommended_action: "continue_modeling" | "fetch_supplemental_sources";
+  recommended_query?: string | null;
 };
 
 export type ModelingRunResponse = {

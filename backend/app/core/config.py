@@ -21,6 +21,11 @@ class Settings(BaseSettings):
         default="json_schema",
         alias="LLM_STRUCTURED_OUTPUT_METHOD",
     )
+    tavily_api_key: str | None = Field(default=None, alias="TAVILY_API_KEY")
+    tavily_search_url: str = Field(
+        default="https://api.tavily.com/search",
+        alias="TAVILY_SEARCH_URL",
+    )
 
     model_config = SettingsConfigDict(
         env_file=".env",

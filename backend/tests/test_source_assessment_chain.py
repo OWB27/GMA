@@ -14,6 +14,7 @@ class FakeRunnable:
             missing_information=[],
             reason="Official description and Steam tags are enough.",
             recommended_action="continue_modeling",
+            recommended_query=None,
         )
 
 

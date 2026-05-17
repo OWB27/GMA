@@ -56,6 +56,9 @@ class SourceAssessmentChain:
                     "Return valid JSON that matches the requested schema. "
                     "recommended_action must be continue_modeling when is_sufficient is true. "
                     "recommended_action must be fetch_supplemental_sources when is_sufficient is false. "
+                    "If recommended_action is fetch_supplemental_sources, include a neutral recommended_query "
+                    "about gameplay evidence for this exact game. "
+                    "The query must not ask what GRS tags or recommendation labels should be assigned. "
                     "Do not wrap the JSON in Markdown code fences.",
                 ),
                 (
