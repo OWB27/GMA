@@ -16,7 +16,6 @@ class Settings(BaseSettings):
         default="http://localhost:5173,http://127.0.0.1:5173",
         alias="CORS_ORIGINS",
     )
-    llm_provider: str = Field(default="openai_compatible", alias="LLM_PROVIDER")
     llm_model: str = Field(default="gpt-4.1-mini", alias="LLM_MODEL")
     llm_api_key: str | None = Field(default=None, alias="LLM_API_KEY")
     llm_base_url: str | None = Field(default=None, alias="LLM_BASE_URL")
