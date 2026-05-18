@@ -12,6 +12,10 @@ class Settings(BaseSettings):
         default="postgresql+psycopg://gma:gma@localhost:5432/gma",
         alias="DATABASE_URL",
     )
+    cors_origins: str = Field(
+        default="http://localhost:5173,http://127.0.0.1:5173",
+        alias="CORS_ORIGINS",
+    )
     llm_provider: str = Field(default="openai_compatible", alias="LLM_PROVIDER")
     llm_model: str = Field(default="gpt-4.1-mini", alias="LLM_MODEL")
     llm_api_key: str | None = Field(default=None, alias="LLM_API_KEY")
